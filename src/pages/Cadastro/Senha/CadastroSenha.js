@@ -6,13 +6,14 @@ import { RectButton } from 'react-native-gesture-handler'
 import styles from './styles'
 import ButtonCadastro from '../components/ButtonCadastro/ButtonCadastro'
 
-function CadastroSenha() {
+function CadastroSenha(props) {
     const { navigate } = useNavigation()
     function handleNavigateToCadastroTermos() {
-        navigate('Termos')
+        navigate('Termos', state)
     }
 
     const [ state, setState ] = useState({
+        ...props.route.params,
         senha1: '',
         senha2: ''
     })
@@ -22,8 +23,7 @@ function CadastroSenha() {
         buttonCadastro = <ButtonCadastro handler={handleNavigateToCadastroTermos} text='Próximo'/>
     } else {
         buttonCadastro = <ButtonCadastro text='Próximo' style={{opacity:0.5}}/>
-   }
-       
+    }
     return(
         <View style={styles.container}>
             <Text style={styles.title}> Senha </Text>

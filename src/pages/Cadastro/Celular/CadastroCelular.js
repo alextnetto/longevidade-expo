@@ -2,20 +2,21 @@ import React, { useState } from 'react';
 import { View, Text, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { mask as masker, unMask } from 'remask'
+import RNPickerSelect from "react-native-picker-select";
 
-
-import styles from './styles'
+import { styles, pickerSelectStyles } from './styles'
 import ButtonCadastro from '../components/ButtonCadastro/ButtonCadastro'
 
 function CadastroCelular() {
     const { navigate } = useNavigation()
     function handleNavigateToCadastroSenha() {
-        navigate('Senha')
+        navigate('Senha', state)
     }
 
     const [ state, setState ] = useState({
         celularMask: '',
-        celularValue: ''
+        celularValue: '',
+        tipoPessoa: 'PF'
     })
     function handleCelularChange(value) {
         const mask = '(99) 9 9999-9999'
@@ -39,10 +40,21 @@ function CadastroCelular() {
                 placeholder='(__) _ ____-____'
                 value={state.celularMask}
                 onChangeText={handleCelularChange}
-                maxLength={17}
+                maxLength={16}
             />
+            <View style={styles.selectContainer}>
+                <Text style={styles.selectTitle}> Você é </Text>
+                <RNPickerSelect
+                    onValueChange={(value) => setState({...state, tipoPessoa: value})}
+                    value={state.tipoPessoa}
+                    items={[
+                        { label: "pessoa física", value: "PF" },
+                        { label: "pessoa jurídica", value: "PJ" }
+                    ]}
+                    style={pickerSelectStyles}
+                />
+            </View>
             {buttonCadastro}
-            
         </View>
     ) 
 }
