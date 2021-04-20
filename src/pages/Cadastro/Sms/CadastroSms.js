@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { RectButton } from 'react-native-gesture-handler'
 
 import styles from './styles'
 import ButtonCadastro from '../components/ButtonCadastro/ButtonCadastro'
 
-function CadastroSms() {
+function CadastroSms(props) {
     const { navigate } = useNavigation()
     
     function handleNavigateToLoginPage() {
-        navigate('Login')
+        navigate('Endereco', state)
     }
+
+    const [ state, setState ] = useState({
+        ...props.route.params
+    })
 
     return(
         <View style={styles.container}>
@@ -21,7 +24,6 @@ function CadastroSms() {
               placeholder='oi'
             />
             <ButtonCadastro handler={handleNavigateToLoginPage} text='Próximo'/>
-
         </View>
     ) 
 }

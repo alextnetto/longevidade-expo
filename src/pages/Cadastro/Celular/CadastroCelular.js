@@ -20,7 +20,10 @@ function CadastroCelular() {
     })
     function handleCelularChange(value) {
         const mask = '(99) 9 9999-9999'
-        setState({celularValue: unMask(value), celularMask: masker(value,mask)})
+        setState({
+            celularValue: unMask(value),
+            celularMask: masker(value, mask)
+        })
     }
 
     var buttonCadastro
