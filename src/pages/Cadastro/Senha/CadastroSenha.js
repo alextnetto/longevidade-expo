@@ -32,6 +32,7 @@ function CadastroSenha(props) {
               style={styles.input}
               onChangeText={(text) => setState({...state, senha1: text})}
               secureTextEntry
+              maxLength={6}
             />
             <TextInput 
                 keyboardType='numeric'
@@ -39,6 +40,7 @@ function CadastroSenha(props) {
                 style={styles.input}
                 onChangeText={(text) => setState({...state, senha2: text})}
                 secureTextEntry
+                maxLength={6}
             />
             {buttonCadastro}
         </View>

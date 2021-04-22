@@ -25,7 +25,7 @@ function CadastroEndereco(props) {
         numero: '',
         complemento: '',
     })
-
+    console.log(state)
     async function handleCepChange(value) {
         const mask = '99999-999'
         if (value.length === 9) {
