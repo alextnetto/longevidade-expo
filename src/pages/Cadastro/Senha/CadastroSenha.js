@@ -10,19 +10,38 @@ function CadastroSenha(props) {
     function handleNavigateToCadastroTermos() {
         navigate('Termos', state)
     }
-
+    
     const [ state, setState ] = useState({
         ...props.route.params,
         senha1: '',
         senha2: ''
     })
 
+    const [ texts, setTexts ] = useState({
+        avisoSenha: ''
+    })
+
+    function handleWrongPassword() {
+        if (state.senha1 !== state.senha2) {
+            setTexts({
+                ...texts,
+                avisoSenha: 'Senhas não coincidem'
+            })
+        } else {
+            setTexts({
+                ...texts,
+                avisoSenha: 'A senha precisa ser de 6 dígitos'
+            })
+        }
+    }
+    
     var buttonCadastro
-    if (state.senha1.length !== 0 && state.senha1 === state.senha2) {
+    if (state.senha1.length === 6 && state.senha1 === state.senha2) {
         buttonCadastro = <ButtonCadastro handler={handleNavigateToCadastroTermos} text='Próximo'/>
     } else {
-        buttonCadastro = <ButtonCadastro text='Próximo' style={{opacity:0.5}}/>
+        buttonCadastro = <ButtonCadastro handler={handleWrongPassword} text='Próximo' style={{opacity:0.5}}/>
     }
+
     return(
         <View style={styles.container}>
             <Text style={styles.title}> Senha </Text>
@@ -41,7 +60,9 @@ function CadastroSenha(props) {
                 onChangeText={(text) => setState({...state, senha2: text})}
                 secureTextEntry
                 maxLength={6}
-            />
+                
+                />
+            <Text style={styles.warningText}> {texts.avisoSenha} </Text>
             {buttonCadastro}
         </View>
     ) 

@@ -18,7 +18,12 @@ const styles = StyleSheet.create({
       width: 200,
       fontSize: 23,
       marginTop: 100
+    },
+    warningText: {
+      fontSize: 20,
+      color: 'red',
+      marginTop: 40
     }
   });
 
-export default styles; 
+export default styles;
