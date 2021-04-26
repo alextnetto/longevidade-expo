@@ -9,7 +9,10 @@ function CadastroSms(props) {
     const { navigate } = useNavigation()
     
     function handleNavigateToLoginPage() {
-        navigate('Endereco', state)
+        navigate('CadastroRealizado', state)
+    }
+    function handleGoBack() {
+        navigate('Senha', props.route.params)
     }
 
     const [ state, setState ] = useState({
@@ -23,7 +26,10 @@ function CadastroSms(props) {
               keyboardType='numeric'
               placeholder='oi'
             />
-            <ButtonCadastro handler={handleNavigateToLoginPage} text='Próximo'/>
+            <ButtonCadastro 
+                handlerNext={handleNavigateToLoginPage}
+                handlerBack={handleGoBack}
+                text='Próximo'/>
         </View>
     ) 
 }

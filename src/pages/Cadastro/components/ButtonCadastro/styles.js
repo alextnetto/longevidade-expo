@@ -1,13 +1,23 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    button: {
+    container: {
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 150,
+    },
+    buttonBack: {
+        backgroundColor: '#aaa',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '50%',
+        height: 50
+    },
+    buttonNext: {
         backgroundColor: '#333',
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'absolute',
-        bottom: 150,
-        width: '100%',
+        width: '50%',
         height: 50
     },
     text: {

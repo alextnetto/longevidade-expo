@@ -12,6 +12,9 @@ function CadastroCelular() {
     function handleNavigateToCadastroSenha() {
         navigate('Senha', state)
     }
+    function handleGoBack() {
+        navigate('Landing')
+    }
 
     const [ state, setState ] = useState({
         celularMask: '',
@@ -29,9 +32,11 @@ function CadastroCelular() {
     var buttonCadastro
     if (state.celularValue.length === 11) {
         buttonCadastro = <ButtonCadastro 
-            handler={handleNavigateToCadastroSenha} text='Próximo'/>
+            handlerNext={handleNavigateToCadastroSenha}
+            handlerBack={handleGoBack}
+            text='Próximo'/>
     } else {
-         buttonCadastro = <ButtonCadastro text='Próximo' style={{opacity:0.5}}/>
+         buttonCadastro = <ButtonCadastro handlerBack={handleGoBack} text='Próximo' style={{opacity:0.5}}/>
     }
 
     return(

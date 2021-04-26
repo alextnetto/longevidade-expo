@@ -10,6 +10,9 @@ function CadastroSenha(props) {
     function handleNavigateToCadastroTermos() {
         navigate('Termos', state)
     }
+    function handleGoBack() {
+        navigate('Celular', props.route.params)
+    }
     
     const [ state, setState ] = useState({
         ...props.route.params,
@@ -37,9 +40,16 @@ function CadastroSenha(props) {
     
     var buttonCadastro
     if (state.senha1.length === 6 && state.senha1 === state.senha2) {
-        buttonCadastro = <ButtonCadastro handler={handleNavigateToCadastroTermos} text='Próximo'/>
+        buttonCadastro = <ButtonCadastro
+                            handlerNext={handleNavigateToCadastroTermos}
+                            handlerBack={handleGoBack}
+                            text='Próximo'/>
     } else {
-        buttonCadastro = <ButtonCadastro handler={handleWrongPassword} text='Próximo' style={{opacity:0.5}}/>
+        buttonCadastro = <ButtonCadastro 
+                            handlerNext={handleWrongPassword}
+                            handlerBack={handleGoBack}
+                            text='Próximo'
+                            style={{opacity:0.5}}/>
     }
 
     return(

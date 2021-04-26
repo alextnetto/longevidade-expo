@@ -11,6 +11,9 @@ function CadastroTermos(props) {
     function handleNavigateToCadastroSms() {
         navigate('Sms', state)
     }
+    function handleGoBack() {
+        navigate('Senha', props.route.params)
+    }
 
     const [ state, setState ] = useState({
         ...props.route.params,
@@ -23,7 +26,10 @@ function CadastroTermos(props) {
               keyboardType='numeric'
               placeholder='oi'
             />
-            <ButtonCadastro handler={handleNavigateToCadastroSms} text='Próximo'/>
+            <ButtonCadastro 
+                handlerNext={handleNavigateToCadastroSms}
+                handlerBack={handleGoBack}
+                text='Próximo'/>
 
         </View>
     ) 
