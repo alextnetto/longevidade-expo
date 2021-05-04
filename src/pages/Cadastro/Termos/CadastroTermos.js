@@ -52,9 +52,10 @@ function CadastroTermos(props) {
     return(
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.title}> Termos </Text>
+                <Text style={styles.headerTitle}> Longevidade +você </Text>
             </View>
             <View style={styles.body}>
+                <Text style={styles.title}> Termos </Text>
                 <View style={styles.scrollContainer}>
                     <ScrollView style={styles.scroll}>
                         <Text style={styles.text}>

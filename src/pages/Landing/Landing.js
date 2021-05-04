@@ -18,13 +18,19 @@ function Landing() {
 
     return (
     <View style={styles.container}>
-        <Text style={styles.title}> Longevidade </Text>
-        <RectButton onPress={handleNavigateToLoginPage} style={styles.button}>
-            <Text> Login </Text>
-        </RectButton>
-        <RectButton onPress={handleNavigateToCadastroPage} style={styles.button}>
-            <Text> Cadastro </Text>
-        </RectButton>
+        <View style={styles.header}>
+            <Text style={styles.headerTitle}> Longevidade +você </Text>
+        </View>
+        <View style={styles.body}>
+            <View style={styles.buttonContainer}>
+                <RectButton onPress={handleNavigateToLoginPage} style={styles.button}>
+                    <Text style={styles.buttonText}> Login </Text>
+                </RectButton>
+                <RectButton onPress={handleNavigateToCadastroPage} style={styles.button}>
+                    <Text style={styles.buttonText}> Cadastro </Text>
+                </RectButton>
+            </View>
+        </View>
     </View>
     )
 }

@@ -28,12 +28,12 @@ function CadastroSenha(props) {
         if (state.senha1 !== state.senha2) {
             setTexts({
                 ...texts,
-                avisoSenha: 'Senhas não coincidem'
+                avisoSenha: 'As senhas informadas não são iguais. Verifique e tente novamente.'
             })
         } else {
             setTexts({
                 ...texts,
-                avisoSenha: 'A senha precisa ser de 6 dígitos'
+                avisoSenha: 'Sua senha deve conter 06 números.'
             })
         }
     }
@@ -54,26 +54,32 @@ function CadastroSenha(props) {
 
     return(
         <View style={styles.container}>
-            <Text style={styles.title}> Senha </Text>
-            <TextInput 
-              keyboardType='numeric'
-              placeholder='Senha'
-              style={styles.input}
-              onChangeText={(text) => setState({...state, senha1: text})}
-              secureTextEntry
-              maxLength={6}
-            />
-            <TextInput 
-                keyboardType='numeric'
-                placeholder='Confirme a senha'
-                style={styles.input}
-                onChangeText={(text) => setState({...state, senha2: text})}
-                secureTextEntry
-                maxLength={6}
-                
-                />
-            <Text style={styles.warningText}> {texts.avisoSenha} </Text>
-            {buttonCadastro}
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}> Longevidade +você </Text>
+            </View>
+            <View style={styles.body}>
+                <Text style={styles.title}> Senha </Text>
+                <View style={styles.inputContainer}>
+                    <TextInput 
+                    keyboardType='numeric'
+                    placeholder='Senha'
+                    style={styles.input}
+                    onChangeText={(text) => setState({...state, senha1: text})}
+                    secureTextEntry
+                    maxLength={6}
+                    />
+                    <TextInput 
+                        keyboardType='numeric'
+                        placeholder='Confirme a senha'
+                        style={styles.input}
+                        onChangeText={(text) => setState({...state, senha2: text})}
+                        secureTextEntry
+                        maxLength={6}
+                    />
+                </View>
+                <Text style={styles.warningText}> {texts.avisoSenha} </Text>
+                {buttonCadastro}
+            </View>
         </View>
     ) 
 }

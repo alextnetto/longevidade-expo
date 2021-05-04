@@ -54,19 +54,24 @@ function CadastroCelular() {
 
     return(
         <View style={styles.container}>
-            <Text style={styles.title}> Celular </Text>
-            <TextInput
-                style={styles.input}
-                keyboardType='numeric'
-                placeholder='(__) _ ____-____'
-                value={state.celularMask}
-                onChangeText={handleCelularChange}
-                maxLength={16}
-            />
-            <Text style={styles.warningText}>
-                {texts.avisoCelular}
-            </Text>
-            {buttonCadastro}
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}> Longevidade +você </Text>
+            </View>
+            <View style={styles.body}>
+                <Text style={styles.title}> Celular </Text>
+                <TextInput
+                    style={styles.input}
+                    keyboardType='numeric'
+                    placeholder='(__) _ ____-____'
+                    value={state.celularMask}
+                    onChangeText={handleCelularChange}
+                    maxLength={16}
+                />
+                <Text style={styles.warningText}>
+                    {texts.avisoCelular}
+                </Text>
+                {buttonCadastro}
+            </View>
         </View>
     ) 
 }

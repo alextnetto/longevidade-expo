@@ -37,22 +37,28 @@ function CadastroSms(props) {
 
     return(
         <View style={styles.container}>
-            <Text style={styles.title}> SMS </Text>
-            <TextInput 
-              keyboardType='numeric'
-              placeholder='oi'
-              maxLength={4}
-              value={state.codigoSms}
-              onChangeText={(value) => {setState({...state, codigoSms: value})}}
-              style={styles.input}
-            />
-            <Text style={styles.warningText}>
-                {texts.avisoSms}
-            </Text>
-            <ButtonCadastro 
-                handlerNext={handleNavigateToFinishPage}
-                handlerBack={handleGoBack}
-                text='Próximo'/>
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}> Longevidade +você </Text>
+            </View>
+            <View style={styles.body}>
+                <Text style={styles.title}> SMS </Text>
+                <TextInput 
+                keyboardType='numeric'
+                placeholder='oi'
+                maxLength={4}
+                value={state.codigoSms}
+                onChangeText={(value) => {setState({...state, codigoSms: value})}}
+                style={styles.input}
+                />
+                <Text style={styles.warningText}>
+                    {texts.avisoSms}
+                </Text>
+                <ButtonCadastro 
+                    handlerNext={handleNavigateToFinishPage}
+                    handlerBack={handleGoBack}
+                    text='Próximo'
+                />
+            </View>
         </View>
     ) 
 }
