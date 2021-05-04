@@ -14,11 +14,6 @@ function CadastroCelular() {
     function handleGoBack() {
         navigate('Landing')
     }
-
-    const [ state, setState ] = useState({
-        celularMask: '',
-        celularValue: '',
-    })
     function handleCelularChange(value) {
         const mask = '(99) 9 9999-9999'
         setState({
@@ -26,6 +21,22 @@ function CadastroCelular() {
             celularMask: masker(value, mask)
         })
     }
+    function handleError() {
+        if (state.celularValue.length === 0) {
+            
+            setTexts({avisoCelular: 'Informe o número do seu celular.'})
+        } else {
+            setTexts({avisoCelular: 'O número do celular não foi digitado corretamente. Verifique e tente novamente.'})
+        }
+    }
+    
+    const [ state, setState ] = useState({
+        celularMask: '',
+        celularValue: '',
+    })
+    const [ texts, setTexts ] = useState({
+        avisoCelular: ''
+    })
 
     var buttonCadastro
     if (state.celularValue.length === 11) {
@@ -34,7 +45,11 @@ function CadastroCelular() {
             handlerBack={handleGoBack}
             text='Próximo'/>
     } else {
-         buttonCadastro = <ButtonCadastro handlerBack={handleGoBack} text='Próximo' style={{opacity:0.5}}/>
+        buttonCadastro = <ButtonCadastro 
+            handlerNext={handleError}
+            handlerBack={handleGoBack} 
+            text='Próximo'
+            style={{opacity:0.5}}/>
     }
 
     return(
@@ -48,6 +63,9 @@ function CadastroCelular() {
                 onChangeText={handleCelularChange}
                 maxLength={16}
             />
+            <Text style={styles.warningText}>
+                {texts.avisoCelular}
+            </Text>
             {buttonCadastro}
         </View>
     ) 

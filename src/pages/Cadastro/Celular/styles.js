@@ -24,6 +24,13 @@ const styles = StyleSheet.create({
     selectTitle: {
       fontSize: 16,
       marginBottom: 10
+    },
+    warningText: {
+      fontSize: 16,
+      width: 300,
+      color: 'red',
+      textAlign: 'center',
+      marginTop: 80
     }
 });
 
