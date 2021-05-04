@@ -4,15 +4,18 @@ import { useNavigation } from '@react-navigation/native'
 
 import styles from './styles'
 import ButtonCadastro from '../components/ButtonCadastro/ButtonCadastro'
+import Backend from '../../../services/back'
 
 function CadastroSms(props) {
     const { navigate } = useNavigation()
     
-    function handleNavigateToLoginPage() {
+    function handleNavigateToFinishPage() {
         navigate('CadastroRealizado', state)
+        const backend = new Backend()
+        backend.tipoTelefone(state)
     }
     function handleGoBack() {
-        navigate('Senha', props.route.params)
+        navigate('Termos', props.route.params)
     }
 
     const [ state, setState ] = useState({
@@ -27,7 +30,7 @@ function CadastroSms(props) {
               placeholder='oi'
             />
             <ButtonCadastro 
-                handlerNext={handleNavigateToLoginPage}
+                handlerNext={handleNavigateToFinishPage}
                 handlerBack={handleGoBack}
                 text='Próximo'/>
         </View>
