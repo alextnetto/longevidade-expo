@@ -5,12 +5,19 @@ import { CheckBox } from 'react-native-elements'
 
 import styles from './styles'
 import ButtonCadastro from '../components/ButtonCadastro/ButtonCadastro'
+import Backend from '../../../services/back'
 
 function CadastroTermos(props) {
     const { navigate } = useNavigation()
     
-    function handleNavigateToCadastroSms() {
-        navigate('Sms', state)
+    async function handleNavigateToCadastroSms() {
+        const api = new Backend()
+        const cadastro = await api.cadastrarPessoa(state)
+        if (cadastro) {
+            navigate('Sms', state)
+        } else {
+            alert('Algo deu errado na requisição')
+        }
     }
     function handleGoBack() {
         navigate('Senha', props.route.params)

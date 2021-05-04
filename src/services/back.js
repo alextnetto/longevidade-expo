@@ -11,34 +11,44 @@ class Backend {
         const body = {
             "telefoneRequest": {
                 "ddd": numero.substring(0, 2),
-                "numero": numero,
+                "numero": numero.substring(2, numero.length),
                 "principal": true,
                 "tipoTelefone": 2
             },
             "senha": senha,
             "tipoPessoa": "PF"
         }
-        api.post('/pessoas', body)
-            .then(res => {
-                console.log(res)
+        console.log(body)
+        const promise = api.post(`/pessoas?aceite=${data.aceite}`, body)
+        const resultPromise = promise.then(res => {
+                console.log('OK')
+                return true
             })
             .catch(err => {
-                console.log(err)
+                console.log('Erro')
+                return false
             })
+        return resultPromise
     }
 
     validaSms(data) {
         const numero = String(data.celularValue)
         const codigoSms = String(data.codigoSms)
-        api.post('/sms/valida',{
+        const body = {
             "ddd": numero.substring(0, 2),
-            "numero": numero,
+            "numero": numero.substring(2, numero.length),
             "codigoSms": codigoSms
-        }).then(res => {
-            console.log(res)
-        }).catch(err => {
-            console.log(err)
-        })
+        }
+        console.log(body)
+        const promise = api.post('/sms/valida', body)
+        const validado = promise.then(res => {
+                console.log('OK')
+                return true
+            }).catch(err => {
+                console.log('Erro')
+                return false
+            })
+        return validado
     }
 
     tipoTelefone(data) {

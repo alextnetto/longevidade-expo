@@ -11,6 +11,16 @@ const styles = StyleSheet.create({
       fontSize: 27,
       position: 'absolute',
       top: 40,
+    },
+    input: {
+      fontSize: 20
+    },
+    warningText: {
+      fontSize: 16,
+      width: 300,
+      color: 'red',
+      textAlign: 'center',
+      marginTop: 100
     }
   });
   
