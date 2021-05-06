@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 
 import styles from './styles'
 import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
+import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 import Backend from '../../../services/back'
 
 function CadastroSms(props) {
@@ -37,9 +38,7 @@ function CadastroSms(props) {
 
     return(
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}> Longevidade +você </Text>
-            </View>
+            <HeaderCadastro />
             <View style={styles.body}>
                 <Text style={styles.title}> SMS </Text>
                 <TextInput 

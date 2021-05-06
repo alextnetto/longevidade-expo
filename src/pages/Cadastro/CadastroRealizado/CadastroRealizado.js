@@ -3,13 +3,12 @@ import { View, Text } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 
 import styles from './styles'
+import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
 function CadastroRealizado() {
     return(
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}> Longevidade +você </Text>
-            </View>
+            <HeaderCadastro />
             <Text style={styles.title}> Cadastro realizado com sucesso </Text>
             <View style={styles.body}>
                 <Text style={styles.text}>

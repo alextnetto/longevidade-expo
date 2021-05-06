@@ -5,6 +5,7 @@ import { mask as masker, unMask } from 'remask'
 
 import styles from './styles'
 import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
+import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 import getCepData from '../../../services/cep'
 
 function CadastroEndereco(props) {
@@ -50,60 +51,63 @@ function CadastroEndereco(props) {
 
     return(
         <View style={styles.container}>
-            <Text style={styles.title}> Endereco </Text>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.input} 
-                    keyboardType='numeric'
-                    placeholder='CEP'
-                    value={state.cepMask}
-                    onChangeText={handleCepChange}
-                    maxLength={9}
-                />
-                <TextInput
-                    style={styles.input} 
-                    keyboardType='numeric'
-                    placeholder='Estado'
-                    value={state.estado}
-                    onChangeText={(value) => setState({...state, estado: value})}
-                />
-                <TextInput
-                    style={styles.input} 
-                    keyboardType='numeric'
-                    placeholder='Cidade'
-                    value={state.cidade}
-                    onChangeText={(value) => setState({...state, cidade: value})}
-                />
-                <TextInput
-                    style={styles.input} 
-                    keyboardType='numeric'
-                    placeholder='Bairro'
-                    value={state.bairro}
-                    onChangeText={(value) => setState({...state, bairro: value})}
-                />
-                <TextInput
-                    style={styles.input} 
-                    keyboardType='numeric'
-                    placeholder='Endereço'
-                    value={state.endereco}
-                    onChangeText={(value) => setState({...state, endereco: value})}
-                />
-                <TextInput
-                    style={styles.input} 
-                    keyboardType='numeric'
-                    placeholder='Número'
-                    value={state.numero}
-                    onChangeText={(value) => setState({...state, numero: value})}
-                />
-                <TextInput
-                    style={styles.input} 
-                    keyboardType='numeric'
-                    placeholder='Complemento'
-                    value={state.complemento}
-                    onChangeText={(value) => setState({...state, complemento: value})}
-                />
+            <HeaderCadastro />
+            <View style={styles.body}>
+                <Text style={styles.title}> Endereco </Text>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.input} 
+                        keyboardType='numeric'
+                        placeholder='CEP'
+                        value={state.cepMask}
+                        onChangeText={handleCepChange}
+                        maxLength={9}
+                    />
+                    <TextInput
+                        style={styles.input} 
+                        keyboardType='numeric'
+                        placeholder='Estado'
+                        value={state.estado}
+                        onChangeText={(value) => setState({...state, estado: value})}
+                    />
+                    <TextInput
+                        style={styles.input} 
+                        keyboardType='numeric'
+                        placeholder='Cidade'
+                        value={state.cidade}
+                        onChangeText={(value) => setState({...state, cidade: value})}
+                    />
+                    <TextInput
+                        style={styles.input} 
+                        keyboardType='numeric'
+                        placeholder='Bairro'
+                        value={state.bairro}
+                        onChangeText={(value) => setState({...state, bairro: value})}
+                    />
+                    <TextInput
+                        style={styles.input} 
+                        keyboardType='numeric'
+                        placeholder='Endereço'
+                        value={state.endereco}
+                        onChangeText={(value) => setState({...state, endereco: value})}
+                    />
+                    <TextInput
+                        style={styles.input} 
+                        keyboardType='numeric'
+                        placeholder='Número'
+                        value={state.numero}
+                        onChangeText={(value) => setState({...state, numero: value})}
+                    />
+                    <TextInput
+                        style={styles.input} 
+                        keyboardType='numeric'
+                        placeholder='Complemento'
+                        value={state.complemento}
+                        onChangeText={(value) => setState({...state, complemento: value})}
+                    />
+                </View>
+                <ButtonCadastro handler={handleNavigateToLoginPage} text='Próximo'/>
             </View>
-            <ButtonCadastro handler={handleNavigateToLoginPage} text='Próximo'/>
         </View>
     ) 
 }

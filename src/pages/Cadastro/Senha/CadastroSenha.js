@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 
 import styles from './styles'
 import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
+import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
 function CadastroSenha(props) {
     const { navigate } = useNavigation()

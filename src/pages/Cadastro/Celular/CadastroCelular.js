@@ -5,6 +5,7 @@ import { mask as masker, unMask } from 'remask'
 
 import styles from './styles'
 import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
+import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
 function CadastroCelular() {
     const { navigate } = useNavigation()
@@ -54,9 +55,7 @@ function CadastroCelular() {
 
     return(
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}> Longevidade +você </Text>
-            </View>
+            <HeaderCadastro />
             <View style={styles.body}>
                 <Text style={styles.title}> Celular </Text>
                 <TextInput
