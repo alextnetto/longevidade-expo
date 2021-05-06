@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { CheckBox } from 'react-native-elements'
 
 import styles from './styles'
-import ButtonCadastro from '../components/ButtonCadastro/ButtonCadastro'
+import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
 import Backend from '../../../services/back'
 
 function CadastroTermos(props) {

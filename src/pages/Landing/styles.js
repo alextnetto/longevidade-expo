@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   buttonContainer: {
-    marginTop: 200
+    marginTop: 200,
+    alignItems: 'center'
   },
   button: {
     width: 300,

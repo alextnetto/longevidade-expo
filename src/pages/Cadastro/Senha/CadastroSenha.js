@@ -3,7 +3,7 @@ import { View, Text, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import styles from './styles'
-import ButtonCadastro from '../components/ButtonCadastro/ButtonCadastro'
+import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
 
 function CadastroSenha(props) {
     const { navigate } = useNavigation()

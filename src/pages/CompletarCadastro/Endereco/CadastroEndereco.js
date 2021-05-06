@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { mask as masker, unMask } from 'remask'
 
 import styles from './styles'
-import ButtonCadastro from '../components/ButtonCadastro/ButtonCadastro'
+import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
 import getCepData from '../../../services/cep'
 
 function CadastroEndereco(props) {

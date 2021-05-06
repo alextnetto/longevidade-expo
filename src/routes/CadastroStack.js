@@ -6,6 +6,7 @@ import CadastroSenha from '../pages/Cadastro/Senha/CadastroSenha'
 import CadastroTermos from '../pages/Cadastro/Termos/CadastroTermos'
 import CadastroSms from '../pages/Cadastro/Sms/CadastroSms'
 import CadastroRealizado from '../pages/Cadastro/CadastroRealizado/CadastroRealizado'
+import CompletarCadastroStack from './CompletarCadastroStack'
 
 const { Navigator, Screen } = createStackNavigator()
 
@@ -17,6 +18,7 @@ function CadastroStack() {
             <Screen name="Termos" component={CadastroTermos}/>
             <Screen name="Sms" component={CadastroSms}/>
             <Screen name="CadastroRealizado" component={CadastroRealizado}/>
+            <Screen name="CompletarCadastro" component={CompletarCadastroStack}/>
         </Navigator>
     )
 }
