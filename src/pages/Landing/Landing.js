@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { RectButton } from 'react-native-gesture-handler'
 
 import styles from './styles'
+import HeaderCadastro from '../../components/HeaderCadastro/HeaderCadastro'
 
 function Landing() {
     const { navigate } = useNavigation()
@@ -20,9 +21,7 @@ function Landing() {
 
     return (
     <View style={styles.container}>
-        <View style={styles.header}>
-            <Text style={styles.headerTitle}> Longevidade +você </Text>
-        </View>
+        <HeaderCadastro />
         <View style={styles.body}>
             <View style={styles.buttonContainer}>
                 <RectButton onPress={handleNavigateToLoginPage} style={styles.button}>
