@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Landing from '../pages/Landing/Landing'
 import Login from '../pages/Login/Login'
 import CadastroStack from './CadastroStack'
+import CompletarCadastroStack from './CompletarCadastroStack'
 
 const { Navigator, Screen } = createStackNavigator()
 
@@ -14,6 +15,7 @@ function AppStack() {
             <Navigator screenOptions={{ headerShown: false}}>
                 <Screen name="Landing" component={Landing}/>
                 <Screen name="Cadastro" component={CadastroStack}/>
+                <Screen name="CompletarCadastro" component={CompletarCadastroStack}/>
                 <Screen name="Login" component={Login}/>
             </Navigator>
         </NavigationContainer>

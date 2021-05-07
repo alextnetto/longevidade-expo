@@ -1,11 +1,18 @@
 import React from 'react';
 import { View, Text } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
 
 import styles from './styles'
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
 function CadastroRealizado() {
+    const { navigate } = useNavigation()
+
+    function handleNavigateToCompletarCadastro() {
+        navigate('CompletarCadastro')
+    }
+    
     return(
         <View style={styles.container}>
             <HeaderCadastro />
@@ -17,7 +24,7 @@ function CadastroRealizado() {
                     Mas não se preocupe você não precisa fazer isso agora
                 </Text>
                 <View style={styles.buttonContainer}>
-                    <RectButton onPress={() => {}} style={styles.button}>
+                    <RectButton onPress={handleNavigateToCompletarCadastro} style={styles.button}>
                         <Text style={styles.buttonText}> Completar agora </Text>
                     </RectButton>
                     <RectButton onPress={() => {}} style={styles.button}>

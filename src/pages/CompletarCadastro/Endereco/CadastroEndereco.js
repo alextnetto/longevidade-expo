@@ -25,6 +25,7 @@ function CadastroEndereco(props) {
         endereco: '',
         numero: '',
         complemento: '',
+        referencia: ''
     })
 
     async function handleCepChange(value) {
@@ -63,49 +64,54 @@ function CadastroEndereco(props) {
                         onChangeText={handleCepChange}
                         maxLength={9}
                     />
+                    <View style={styles.linha1}>
+                        <TextInput
+                            style={styles.inputUf} 
+                            placeholder='UF'
+                            value={state.estado}
+                            onChangeText={(value) => setState({...state, estado: value})}
+                        />
+                        <TextInput
+                            style={styles.inputCidade} 
+                            placeholder='Cidade'
+                            value={state.cidade}
+                            onChangeText={(value) => setState({...state, cidade: value})}
+                        />
+                    </View>
                     <TextInput
                         style={styles.input} 
-                        keyboardType='numeric'
-                        placeholder='Estado'
-                        value={state.estado}
-                        onChangeText={(value) => setState({...state, estado: value})}
-                    />
-                    <TextInput
-                        style={styles.input} 
-                        keyboardType='numeric'
-                        placeholder='Cidade'
-                        value={state.cidade}
-                        onChangeText={(value) => setState({...state, cidade: value})}
-                    />
-                    <TextInput
-                        style={styles.input} 
-                        keyboardType='numeric'
                         placeholder='Bairro'
                         value={state.bairro}
                         onChangeText={(value) => setState({...state, bairro: value})}
                     />
                     <TextInput
                         style={styles.input} 
-                        keyboardType='numeric'
                         placeholder='Endereço'
                         value={state.endereco}
                         onChangeText={(value) => setState({...state, endereco: value})}
                     />
+                    <View style={styles.linha2}>
+                        <TextInput
+                            style={styles.inputNumero} 
+                            keyboardType='numeric'
+                            placeholder='Número'
+                            value={state.numero}
+                            onChangeText={(value) => setState({...state, numero: value})}
+                        />
+                        <TextInput
+                            style={styles.inputComplemento} 
+                            placeholder='Complemento'
+                            value={state.complemento}
+                            onChangeText={(value) => setState({...state, complemento: value})}
+                        />
+                    </View>
                     <TextInput
                         style={styles.input} 
-                        keyboardType='numeric'
-                        placeholder='Número'
-                        value={state.numero}
-                        onChangeText={(value) => setState({...state, numero: value})}
+                        placeholder='Ponto de referência'
+                        value={state.referencia}
+                        onChangeText={(value) => setState({...state, referencia: value})}
                     />
-                    <TextInput
-                        style={styles.input} 
-                        keyboardType='numeric'
-                        placeholder='Complemento'
-                        value={state.complemento}
-                        onChangeText={(value) => setState({...state, complemento: value})}
-                    />
-                </View>
+                    </View>
                 <ButtonCadastro handler={handleNavigateToLoginPage} text='Próximo'/>
             </View>
         </View>

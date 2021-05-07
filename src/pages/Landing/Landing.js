@@ -11,7 +11,9 @@ function Landing() {
     function handleNavigateToCadastroPage() {
         navigate('Cadastro')
     }
-
+    function handleNavigateToCompletarCadastroPage() {
+        navigate('CompletarCadastro')
+    }
     function handleNavigateToLoginPage() {
         navigate('Login')
     }
@@ -28,6 +30,9 @@ function Landing() {
                 </RectButton>
                 <RectButton onPress={handleNavigateToCadastroPage} style={styles.button}>
                     <Text style={styles.buttonText}> Cadastro </Text>
+                </RectButton>
+                <RectButton onPress={handleNavigateToCompletarCadastroPage} style={styles.button}>
+                    <Text style={styles.buttonText}> Completar cadastro </Text>
                 </RectButton>
             </View>
         </View>

@@ -7,20 +7,65 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'flex-start',
     },
+    body: {
+      marginTop: 50,
+      alignItems: 'center',
+      flex: 1,
+    },
     title: {
       fontSize: 27,
       marginTop: 40
     },
     inputContainer: {
-      marginTop: 20
+      marginTop: 20,
+      width: 350
+    },
+    linha1: {
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    },
+    linha2: {
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    },
+    inputUf: {
+      borderBottomColor: '#000',
+      borderBottomWidth: 1,
+      width: 50,
+      fontSize: 23,
+      marginVertical: 20,
+      paddingLeft: 10,
+    },
+    inputCidade: {
+      borderBottomColor: '#000',
+      borderBottomWidth: 1,
+      width: 270,
+      fontSize: 23,
+      marginVertical: 20,
+      paddingLeft: 10,
+    },
+    inputNumero: {
+      borderBottomColor: '#000',
+      borderBottomWidth: 1,
+      width: 100,
+      fontSize: 23,
+      marginVertical: 20,
+      paddingLeft: 10,
+    },
+    inputComplemento: {
+      borderBottomColor: '#000',
+      borderBottomWidth: 1,
+      width: 220,
+      fontSize: 23,
+      marginVertical: 20,
+      paddingLeft: 10,
     },
     input: {
       borderBottomColor: '#000',
       borderBottomWidth: 1,
-      width: 250,
       fontSize: 23,
-      marginTop: 45,
-      paddingLeft: 10
+      marginVertical: 20,
+      paddingLeft: 10,
     }
   });
   
