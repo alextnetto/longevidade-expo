@@ -9,67 +9,93 @@ import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
 function InfoPessoais1(props) {
     const { navigate } = useNavigation()
-    function handleNavigateToCadastroTermos() {
-        navigate('Termos', state)
+    function handleNavigateToInfoPessoais2() {
+        navigate('InfoPessoais2', state)
     }
     function handleGoBack() {
-        navigate('Celular', props.route.params)
+        navigate('Landing')
     }
     
     const [ state, setState ] = useState({
         ...props.route.params,
         nome: '',
         cpf: '',
-        email: ''
+        email: '',
+        cpfMask: ''
     })
 
-    const [ texts, setTexts ] = useState({
-        avisoNome: '',
-        avisoCpf: '',
-        avisoEmail: ''
-    })
+    const [ aviso, setAviso ] = useState('')
 
-    function handleWrongPassword() {
-        if (state.nome.length == 0) {
-            setTexts({
-                ...texts,
-                avisoSenha: 'As senhas informadas não são iguais. Verifique e tente novamente.'
-            })
-        } else {
-            setTexts({
-                ...texts,
-                avisoSenha: 'Sua senha deve conter 06 números.'
-            })
-        }
+    
+    function validaEmail() {
+        const email = String(state.email)
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email.toLowerCase());
+    }
+    function validaCpf() {
+        const cpf = String(state.cpf)
+        var Soma;
+        var Resto;
+        Soma = 0;
+        if (cpf == "00000000000") return false;
+        
+        for (var i=1; i<=9; i++) Soma = Soma + parseInt(cpf.substring(i-1, i)) * (11 - i);
+        Resto = (Soma * 10) % 11;
+        
+        if ((Resto == 10) || (Resto == 11))  Resto = 0;
+        if (Resto != parseInt(cpf.substring(9, 10)) ) return false;
+        
+        Soma = 0;
+        for (var i = 1; i <= 10; i++) Soma = Soma + parseInt(cpf.substring(i-1, i)) * (12 - i);
+        Resto = (Soma * 10) % 11;
+        
+        if ((Resto == 10) || (Resto == 11))  Resto = 0;
+        if (Resto != parseInt(cpf.substring(10, 11) ) ) return false;
+        return true;
+    }
+    function validaNome() {
+        const nome = String(state.nome)
+        const re = /[a-zA-Z]\s[a-zA-Z]/;
+        return re.test(nome);
     }
 
-    function validateEmail(email) {
-
-    }
-    function validateCpf(cpf) {
-        return true
-    }
     function handleCpfChange(value) {
         const mask = '999.999.999-99'
         setState({
-            celularValue: unMask(value),
-            celularMask: masker(value, mask)
+            ...state,
+            cpf: unMask(value),
+            cpfMask: masker(value, mask)
         })
     }
+
+    function handleIncomplete() {
+        if (!validaNome()) {
+            setAviso('Informe o seu nome completo.')
+        } else if (state.cpf.length === 0) {
+            setAviso('Informe o seu CPF.')
+        } else if (!validaCpf()) {
+            setAviso('O CPF informado não está correto. Verifique e tente novamente.')
+        } else if (state.email.length === 0) {
+            setAviso('Informe o seu melhor e-mail.')
+        } else if (!validaEmail()) {
+            setAviso('O email não foi digitado corretamente. Verifique e tente novamente.')
+        }
+    }
+
     var buttonCadastro
-    if (true) {
+    if (validaEmail() && validaCpf() && validaNome()) {
         buttonCadastro = <ButtonCadastro
-                            handlerNext={handleNavigateToCadastroTermos}
-                            handlerBack={handleGoBack}
-                            text='Próximo'/>
+        handlerNext={handleNavigateToInfoPessoais2}
+        handlerBack={handleGoBack}
+        text='Próximo'/>
     } else {
         buttonCadastro = <ButtonCadastro 
-                            handlerNext={handleWrongPassword}
+        handlerNext={handleIncomplete}
                             handlerBack={handleGoBack}
                             text='Próximo'
                             style={{opacity:0.5}}/>
     }
-
+    console.log(validaNome(), validaCpf(), validaEmail(), state)
     return(
         <View style={styles.container}>
             <HeaderCadastro />
@@ -79,24 +105,27 @@ function InfoPessoais1(props) {
                     <Text style={styles.inputTitle}> Nome completo </Text>
                     <TextInput 
                         style={styles.input}
+                        value={state.nome}
                         onChangeText={(text) => setState({...state, nome: text})}
                     />
                     <Text style={styles.inputTitle}> Número de CPF </Text>
                     <TextInput 
                         placeholder='___.___.___-__'
                         keyboardType='numeric'
-                        value={state.cpf}
+                        value={state.cpfMask}
                         onChangeText={handleCpfChange}
                         style={styles.input}
-                        onChangeText={(text) => setState({...state, cpf: text})}
+                        onChangeText={handleCpfChange}
+                        maxLength={14}
                     />
                     <Text style={styles.inputTitle}> Endereço de email </Text>
                     <TextInput 
                         style={styles.input}
+                        value={state.email}
                         onChangeText={(text) => setState({...state, email: text})}
                     />
                 </View>
-                <Text style={styles.warningText}> {texts.avisoSenha} </Text>
+                <Text style={styles.warningText}> {aviso} </Text>
                 {buttonCadastro}
             </View>
         </View>
