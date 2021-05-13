@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:8080/v1'
+    baseURL: 'https://longevidade-dev.herokuapp.com'
 })
 class Backend {
 
@@ -19,7 +19,7 @@ class Backend {
             "tipoPessoa": "PF"
         }
         console.log(body)
-        const promise = api.post(`/pessoas?aceite=${data.aceite}`, body)
+        const promise = api.post(`/v1/pessoas?aceite=${data.aceite}`, body)
         const resultPromise = promise.then(res => {
                 console.log('OK')
                 return true
@@ -40,7 +40,7 @@ class Backend {
             "codigoSms": codigoSms
         }
         console.log(body)
-        const promise = api.post('/sms/valida', body)
+        const promise = api.post('/v1/sms/valida', body)
         const validado = promise.then(res => {
                 console.log('OK')
                 return true
@@ -52,7 +52,7 @@ class Backend {
     }
 
     tipoTelefone(data) {
-        api.get('/tipos-telefones')
+        api.get('/v1/tipos-telefones')
             .then(res => {
                 console.log(res)
             })

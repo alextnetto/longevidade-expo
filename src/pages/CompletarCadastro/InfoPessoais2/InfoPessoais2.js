@@ -6,11 +6,12 @@ import RNDateTimePicker from '@react-native-community/datetimepicker';
 import styles from './styles'
 import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
+import RadioButton from '../../../components/RadioButton/RadioButton'
 
 function InfoPessoais2(props) {
     const [ state, setState ] = useState({
         ...props.route.params,
-        nascimento: '',
+        nascimento: new Date(),
         genero: ''
     })
 
@@ -74,16 +75,15 @@ function InfoPessoais2(props) {
                         locale="pt-BR"
                     />
                     <Text style={styles.inputTitle}> Gênero </Text>
-                    <TextInput 
-                        keyboardType='numeric'
-                        value={state.genero}
-                        style={styles.input}
-                        onChangeText={(text) => setState({...state, genero: text})}
+                    <RadioButton
+                        text='Masculino'
+                        checked={state.genero === 'M'}
+                        onPress={() => {setState({...state, genero: 'M'})}}
                     />
                     <RadioButton
-                        value="first"
-                        status={ checked === 'first' ? 'checked' : 'unchecked' }
-                        onPress={() => setChecked('first')}
+                        text='Feminino'
+                        checked={state.genero === 'F'}
+                        onPress={() => {setState({...state, genero: 'F'})}}
                     />
                 </View>
                 <Text style={styles.warningText}> {texts.avisoSenha} </Text>
