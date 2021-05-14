@@ -83,7 +83,7 @@ function InfoPessoais1(props) {
     }
 
     var buttonCadastro
-    if (validaEmail() && validaCpf() && validaNome()) {
+    if (validaEmail() && validaNome()) {
         buttonCadastro = <ButtonCadastro
         handlerNext={handleNavigateToInfoPessoais2}
         handlerBack={handleGoBack}

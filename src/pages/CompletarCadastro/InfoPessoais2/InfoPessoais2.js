@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import { mask as masker, unMask } from 'remask'
 
 import styles from './styles'
 import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
@@ -12,14 +13,12 @@ function InfoPessoais2(props) {
     const [ state, setState ] = useState({
         ...props.route.params,
         nascimento: new Date(),
+        nascimento1: '',
+        nascimento1Mask: '',
         genero: ''
     })
 
-    const [ texts, setTexts ] = useState({
-        avisoNascimento: '',
-        avisoGenero: ''
-    })
-    const [checked, setChecked] = React.useState('first');
+    const [ aviso, setAviso ] = useState('')
     
     const { navigate } = useNavigation()
     function handleNavigateToCadastroTermos() {
@@ -29,33 +28,45 @@ function InfoPessoais2(props) {
         navigate('Landing')
     }
     
+    function validaNascimento() {
+        const nascimento = String(state.nascimento1Mask)
+        const re = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/;
+        return re.test(nascimento);
+    }
+    function validaGenero() {
+        return state.genero !== ''
+    }
 
     function onDateChange(event, selectedDate) {
         setState({...state, nascimento: selectedDate})
-    };
-    function handleWrongPassword() {
+    }
+    function handleNascimento(value) {
+        const mask = '99/99/9999'
+        setState({
+            ...state,
+            nascimento1: unMask(value),
+            nascimento1Mask: masker(value, mask)
+        })
+    }
+    function handleIncomplete() {
         if (state.genero == '') {
-            setTexts({
-                ...texts,
-                avisoSenha: 'As senhas informadas não são iguais. Verifique e tente novamente.'
-            })
+            setAviso('Selecione o seu gênero.')
+        } else if (state.nascimento1.length === 0) {
+            setAviso('Informe a sua data de nascimento.')
         } else {
-            setTexts({
-                ...texts,
-                avisoSenha: 'Sua senha deve conter 06 números.'
-            })
+            setAviso('Sua senha deve conter 06 números.')
         }
     }
-    
+
     var buttonCadastro
-    if (true) {
+    if (validaGenero() && validaNascimento()) {
         buttonCadastro = <ButtonCadastro
                             handlerNext={handleNavigateToCadastroTermos}
                             handlerBack={handleGoBack}
                             text='Próximo'/>
     } else {
         buttonCadastro = <ButtonCadastro 
-                            handlerNext={handleWrongPassword}
+                            handlerNext={handleIncomplete}
                             handlerBack={handleGoBack}
                             text='Próximo'
                             style={{opacity:0.5}}/>
@@ -74,19 +85,40 @@ function InfoPessoais2(props) {
                         onChange={onDateChange}
                         locale="pt-BR"
                     />
+                    <TextInput 
+                        placeholder='__ /__ /____'
+                        keyboardType='numeric'
+                        value={state.nascimento1Mask}
+                        onChangeText={handleNascimento}
+                        style={styles.input}
+                        onChangeText={handleNascimento}
+                        maxLength={10}
+                    />
                     <Text style={styles.inputTitle}> Gênero </Text>
-                    <RadioButton
-                        text='Masculino'
-                        checked={state.genero === 'M'}
-                        onPress={() => {setState({...state, genero: 'M'})}}
-                    />
-                    <RadioButton
-                        text='Feminino'
-                        checked={state.genero === 'F'}
-                        onPress={() => {setState({...state, genero: 'F'})}}
-                    />
+                    <View style={styles.buttonContainer}>
+                        <RadioButton
+                            text='Masculino'
+                            checked={state.genero === 'M'}
+                            onPress={() => {setState({...state, genero: 'M'})}}
+                        />
+                        <RadioButton
+                            text='Feminino'
+                            checked={state.genero === 'F'}
+                            onPress={() => {setState({...state, genero: 'F'})}}
+                        />
+                        <RadioButton
+                            text='Outros'
+                            checked={state.genero === 'Outros'}
+                            onPress={() => {setState({...state, genero: 'Outros'})}}
+                        />
+                        <RadioButton
+                            text='Não quero informar'
+                            checked={state.genero === 'Não quero informar'}
+                            onPress={() => {setState({...state, genero: 'Não quero informar'})}}
+                        />
+                    </View>
                 </View>
-                <Text style={styles.warningText}> {texts.avisoSenha} </Text>
+                <Text style={styles.warningText}> {aviso} </Text>
                 {buttonCadastro}
             </View>
         </View>

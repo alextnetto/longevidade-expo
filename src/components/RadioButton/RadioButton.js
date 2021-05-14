@@ -11,15 +11,15 @@ function RadioButton(props) {
             {props.checked == true ?
                 <TouchableOpacity style={styles.button} onPress={props.onPress}>
                     <View style={styles.container}>
-                        <Text style={styles.text}> {props.text} </Text>
                         <Image style={styles.img} source={selectedImg}/>
+                        <Text style={styles.text}> {props.text} </Text>
                     </View>
                 </TouchableOpacity>
                 :
                 <TouchableOpacity style={styles.button} onPress={props.onPress}>
                     <View style={styles.container}>
-                        <Text style={styles.text}> {props.text} </Text>
                         <Image style={styles.img} source={unselectedImg}/>
+                        <Text style={styles.text}> {props.text} </Text>
                     </View>
                 </TouchableOpacity>}
         </View>
