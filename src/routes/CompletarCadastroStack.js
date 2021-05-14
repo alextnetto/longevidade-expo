@@ -10,8 +10,8 @@ const { Navigator, Screen } = createStackNavigator()
 function CompletarCadastroStack() {
     return(
         <Navigator screenOptions={{ headerShown: false}}>
-            <Screen name="InfoPessoais2" component={InfoPessoais2}/>
             <Screen name="InfoPessoais1" component={InfoPessoais1}/>
+            <Screen name="InfoPessoais2" component={InfoPessoais2}/>
             <Screen name="Endereco" component={CadastroEndereco}/>
         </Navigator>
     )

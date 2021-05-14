@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
       width: 350
     },
     inputTitle: {
-        marginTop: 50,
+        marginTop: 30,
         fontSize: 25
     },
     inputNascimento: {
@@ -35,14 +35,14 @@ const styles = StyleSheet.create({
       paddingLeft: 10,
     },
     buttonContainer: {
-      marginTop: 30,
+      marginTop: 20,
     },
     warningText: {
       fontSize: 16,
       width: 300,
       color: 'red',
       textAlign: 'center',
-      marginTop: 30
+      marginTop: 20
     }
 });
   

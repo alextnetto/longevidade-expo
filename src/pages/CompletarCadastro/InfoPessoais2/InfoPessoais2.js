@@ -10,6 +10,14 @@ import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 import RadioButton from '../../../components/RadioButton/RadioButton'
 
 function InfoPessoais2(props) {
+    const { navigate } = useNavigation()
+    function handleNavigateToCadastroTermos() {
+        navigate('Termos', state)
+    }
+    function handleGoBack() {
+        navigate('InfoPessoais1')
+    }
+    
     const [ state, setState ] = useState({
         ...props.route.params,
         nascimento: new Date(),
@@ -17,16 +25,7 @@ function InfoPessoais2(props) {
         nascimento1Mask: '',
         genero: ''
     })
-
     const [ aviso, setAviso ] = useState('')
-    
-    const { navigate } = useNavigation()
-    function handleNavigateToCadastroTermos() {
-        navigate('Termos', state)
-    }
-    function handleGoBack() {
-        navigate('Landing')
-    }
     
     function validaNascimento() {
         const nascimento = String(state.nascimento1Mask)
@@ -49,12 +48,13 @@ function InfoPessoais2(props) {
         })
     }
     function handleIncomplete() {
-        if (state.genero == '') {
-            setAviso('Selecione o seu gênero.')
-        } else if (state.nascimento1.length === 0) {
+        if (state.nascimento1.length === 0) {
             setAviso('Informe a sua data de nascimento.')
-        } else {
-            setAviso('Sua senha deve conter 06 números.')
+        } else if (!validaNascimento()) {
+            setAviso('A data de nascimento informada não está correta. Verifique e tente novamente.')
+        }
+        else{
+            setAviso('Selecione o seu gênero.')
         }
     }
 

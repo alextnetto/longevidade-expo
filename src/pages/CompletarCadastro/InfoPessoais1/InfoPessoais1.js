@@ -37,6 +37,7 @@ function InfoPessoais1(props) {
         var Soma;
         var Resto;
         Soma = 0;
+        if (cpf.length === 0) return true
         if (cpf == "00000000000") return false;
         
         for (var i=1; i<=9; i++) Soma = Soma + parseInt(cpf.substring(i-1, i)) * (11 - i);
@@ -83,7 +84,7 @@ function InfoPessoais1(props) {
     }
 
     var buttonCadastro
-    if (validaEmail() && validaNome()) {
+    if (validaEmail() && validaCpf() && validaNome()) {
         buttonCadastro = <ButtonCadastro
         handlerNext={handleNavigateToInfoPessoais2}
         handlerBack={handleGoBack}
@@ -108,7 +109,7 @@ function InfoPessoais1(props) {
                         value={state.nome}
                         onChangeText={(text) => setState({...state, nome: text})}
                     />
-                    <Text style={styles.inputTitle}> Número de CPF </Text>
+                    <Text style={styles.inputTitle}> Número de CPF (opcional)</Text>
                     <TextInput 
                         placeholder='___.___.___-__'
                         keyboardType='numeric'
