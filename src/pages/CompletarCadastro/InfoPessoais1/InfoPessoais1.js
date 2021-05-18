@@ -96,7 +96,6 @@ function InfoPessoais1(props) {
                             text='Próximo'
                             style={{opacity:0.5}}/>
     }
-    console.log(validaNome(), validaCpf(), validaEmail(), state)
     return(
         <View style={styles.container}>
             <HeaderCadastro />

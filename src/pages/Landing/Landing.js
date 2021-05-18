@@ -6,6 +6,8 @@ import { RectButton } from 'react-native-gesture-handler'
 import styles from './styles'
 import HeaderCadastro from '../../components/HeaderCadastro/HeaderCadastro'
 
+import LocalData from '../../services/localData'
+
 function Landing() {
     const { navigate } = useNavigation()
 

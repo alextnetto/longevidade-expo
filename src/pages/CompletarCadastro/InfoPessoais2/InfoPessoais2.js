@@ -11,8 +11,8 @@ import RadioButton from '../../../components/RadioButton/RadioButton'
 
 function InfoPessoais2(props) {
     const { navigate } = useNavigation()
-    function handleNavigateToCadastroTermos() {
-        navigate('Termos', state)
+    function handleNextPage() {
+        navigate('Endereco', state)
     }
     function handleGoBack() {
         navigate('InfoPessoais1')
@@ -20,15 +20,15 @@ function InfoPessoais2(props) {
     
     const [ state, setState ] = useState({
         ...props.route.params,
-        nascimento: new Date(),
-        nascimento1: '',
-        nascimento1Mask: '',
+        //nascimento: new Date(),
+        nascimento: '',
+        nascimentoMask: '',
         genero: ''
     })
     const [ aviso, setAviso ] = useState('')
     
     function validaNascimento() {
-        const nascimento = String(state.nascimento1Mask)
+        const nascimento = String(state.nascimentoMask)
         const re = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/;
         return re.test(nascimento);
     }
@@ -43,12 +43,12 @@ function InfoPessoais2(props) {
         const mask = '99/99/9999'
         setState({
             ...state,
-            nascimento1: unMask(value),
-            nascimento1Mask: masker(value, mask)
+            nascimento: unMask(value),
+            nascimentoMask: masker(value, mask)
         })
     }
     function handleIncomplete() {
-        if (state.nascimento1.length === 0) {
+        if (state.nascimento.length === 0) {
             setAviso('Informe a sua data de nascimento.')
         } else if (!validaNascimento()) {
             setAviso('A data de nascimento informada não está correta. Verifique e tente novamente.')
@@ -61,7 +61,7 @@ function InfoPessoais2(props) {
     var buttonCadastro
     if (validaGenero() && validaNascimento()) {
         buttonCadastro = <ButtonCadastro
-                            handlerNext={handleNavigateToCadastroTermos}
+                            handlerNext={handleNextPage}
                             handlerBack={handleGoBack}
                             text='Próximo'/>
     } else {
@@ -79,16 +79,18 @@ function InfoPessoais2(props) {
                 <Text style={styles.title}> Preencha as informações </Text>
                 <View style={styles.inputContainer}>
                     <Text style={styles.inputTitle}> Data de nascimento </Text>
+                    {/* 
                     <RNDateTimePicker
                         style={styles.inputNascimento}
                         value={state.nascimento}
                         onChange={onDateChange}
                         locale="pt-BR"
                     />
+                    */}
                     <TextInput 
                         placeholder='__ /__ /____'
                         keyboardType='numeric'
-                        value={state.nascimento1Mask}
+                        value={state.nascimentoMask}
                         onChangeText={handleNascimento}
                         style={styles.input}
                         onChangeText={handleNascimento}

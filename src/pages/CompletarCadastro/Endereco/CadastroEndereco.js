@@ -7,12 +7,22 @@ import styles from './styles'
 import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 import getCepData from '../../../services/cep'
+import Backend from '../../../services/back'
 
 function CadastroEndereco(props) {
     const { navigate } = useNavigation()
     
-    function handleNavigateToLoginPage() {
-        navigate('Login')
+    async function handleNext() {
+        const api = new Backend()
+        const cadastro = await api.completarCadastro(state)
+        if (cadastro) {
+            navigate('Sms', state)
+        } else {
+            alert('Algo deu errado na requisição')
+        }
+    }
+    function handleGoBack() {
+        navigate('InfoPessoais2')
     }
 
     const [ state, setState ] = useState({
@@ -49,12 +59,12 @@ function CadastroEndereco(props) {
             })
         }
     }
-
+    console.log(state)
     return(
         <View style={styles.container}>
             <HeaderCadastro />
             <View style={styles.body}>
-                <Text style={styles.title}> Endereco </Text>
+                <Text style={styles.title}> Endereço </Text>
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input} 
@@ -63,26 +73,6 @@ function CadastroEndereco(props) {
                         value={state.cepMask}
                         onChangeText={handleCepChange}
                         maxLength={9}
-                    />
-                    <View style={styles.linha1}>
-                        <TextInput
-                            style={styles.inputUf} 
-                            placeholder='UF'
-                            value={state.estado}
-                            onChangeText={(value) => setState({...state, estado: value})}
-                        />
-                        <TextInput
-                            style={styles.inputCidade} 
-                            placeholder='Cidade'
-                            value={state.cidade}
-                            onChangeText={(value) => setState({...state, cidade: value})}
-                        />
-                    </View>
-                    <TextInput
-                        style={styles.input} 
-                        placeholder='Bairro'
-                        value={state.bairro}
-                        onChangeText={(value) => setState({...state, bairro: value})}
                     />
                     <TextInput
                         style={styles.input} 
@@ -107,12 +97,32 @@ function CadastroEndereco(props) {
                     </View>
                     <TextInput
                         style={styles.input} 
+                        placeholder='Bairro'
+                        value={state.bairro}
+                        onChangeText={(value) => setState({...state, bairro: value})}
+                    />
+                    <View style={styles.linha1}>
+                        <TextInput
+                            style={styles.inputCidade} 
+                            placeholder='Cidade'
+                            value={state.cidade}
+                            onChangeText={(value) => setState({...state, cidade: value})}
+                        />
+                        <TextInput
+                            style={styles.inputUf} 
+                            placeholder='UF'
+                            value={state.estado}
+                            onChangeText={(value) => setState({...state, estado: value})}
+                        />
+                    </View>
+                    <TextInput
+                        style={styles.input} 
                         placeholder='Ponto de referência'
                         value={state.referencia}
                         onChangeText={(value) => setState({...state, referencia: value})}
                     />
                     </View>
-                <ButtonCadastro handler={handleNavigateToLoginPage} text='Próximo'/>
+                <ButtonCadastro handlerBack={handleGoBack} handlerNext={handleNext} text='Próximo'/>
             </View>
         </View>
     ) 
