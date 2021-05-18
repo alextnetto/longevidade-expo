@@ -43,7 +43,7 @@ function CadastroSms(props) {
                 <Text style={styles.title}> SMS </Text>
                 <TextInput 
                 keyboardType='numeric'
-                placeholder='oi'
+                placeholder='____'
                 maxLength={4}
                 value={state.codigoSms}
                 onChangeText={(value) => {setState({...state, codigoSms: value})}}

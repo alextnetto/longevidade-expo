@@ -55,9 +55,7 @@ function CadastroSenha(props) {
 
     return(
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}> Longevidade +você </Text>
-            </View>
+            <HeaderCadastro />
             <View style={styles.body}>
                 <Text style={styles.title}> Senha </Text>
                 <View style={styles.inputContainer}>

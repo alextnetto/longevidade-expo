@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   title: {
-    fontSize: 27,
+    fontSize: 33,
     color: 'black'
   },
   body: {
@@ -16,7 +16,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   input: {
-    fontSize: 20
+    marginTop: 200,
+    fontSize: 30,
+    borderBottomColor: '#000',
+    borderBottomWidth: 1,
+    width: 120,
+    letterSpacing: 8,
+    paddingStart: 18
   },
   warningText: {
     fontSize: 16,
