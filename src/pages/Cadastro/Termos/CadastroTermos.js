@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { CheckBox } from 'react-native-elements'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import styles from './styles'
 import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
@@ -12,19 +13,21 @@ function CadastroTermos(props) {
     const { navigate } = useNavigation()
     
     async function handleNavigateToCadastroSms() {
+        setSpinner(true)
         const api = new Backend()
         const cadastro = await api.cadastrarPessoa(state)
+        setSpinner(false)
         if (cadastro) {
             navigate('Sms', state)
         } else {
-            alert('Algo deu errado na requisição')
+            setAviso('Algo deu errado na requisição')
         }
     }
     function handleGoBack() {
         navigate('Senha', props.route.params)
     }
     function handleFalseAceite() {
-        setTexts({avisoAceite: "Para prosseguir é necessário aceitar os 'Termos de Uso'."})
+        setAviso("Para prosseguir é necessário aceitar os 'Termos de Uso'.")
     }
 
     const [ state, setState ] = useState({
@@ -32,9 +35,8 @@ function CadastroTermos(props) {
         aceite: false
     })
 
-    const [ texts, setTexts ] = useState({
-        avisoAceite: ''
-    })
+    const [ aviso, setAviso ] = useState('')
+    const [ spinner, setSpinner ] = useState(false)
     
     var buttonCadastro
     if (state.aceite) {
@@ -52,6 +54,11 @@ function CadastroTermos(props) {
 
     return(
         <View style={styles.container}>
+            <Spinner
+                visible={spinner}
+                textContent={'Carregando...'}
+                textStyle={styles.spinnerTextStyle}
+            />
             <HeaderCadastro />
             <View style={styles.body}>
                 <Text style={styles.title}> Termos </Text>
@@ -71,7 +78,7 @@ function CadastroTermos(props) {
                     containerStyle={styles.checkBox}
                 />
                 <Text style={styles.warningText}>
-                    {texts.avisoAceite}
+                    {aviso}
                 </Text>
                 {buttonCadastro}
             </View>

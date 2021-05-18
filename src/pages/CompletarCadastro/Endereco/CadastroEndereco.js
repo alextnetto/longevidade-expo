@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import { View, Text, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { mask as masker, unMask } from 'remask'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import styles from './styles'
 import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
@@ -12,12 +13,14 @@ import Backend from '../../../services/back'
 function CadastroEndereco(props) {
     const { navigate } = useNavigation()
     async function handleGoNext() {
+        setSpinner(true)
         const api = new Backend()
         const cadastro = await api.completarCadastro(state)
+        setSpinner(false)
         if (cadastro) {
             navigate('Finalizado')
         } else {
-            alert('Algo deu errado na requisição')
+            setAviso('Algo deu errado na requisição')
         }
     }
     function handleGoBack() {
@@ -37,6 +40,7 @@ function CadastroEndereco(props) {
         referencia: ''
     })
     const [ aviso, setAviso ] = useState('')
+    const [ spinner, setSpinner ] = useState(false)
 
     async function handleCepChange(value) {
         const mask = '99999-999'
@@ -107,6 +111,11 @@ function CadastroEndereco(props) {
     }
     return(
         <View style={styles.container}>
+            <Spinner
+                visible={spinner}
+                textContent={'Carregando...'}
+                textStyle={styles.spinnerTextStyle}
+            />
             <HeaderCadastro />
             <View style={styles.body}>
                 <Text style={styles.title}> Endereço </Text>

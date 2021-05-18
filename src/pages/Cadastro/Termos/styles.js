@@ -7,23 +7,23 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   title: {
-    fontSize: 27,
+    fontSize: 33,
     color: 'black'
   },
   body: {
-    marginTop: 70,
+    marginTop: 30,
     alignItems: 'center',
     flex: 1,
   },
   scrollContainer: {
     width: 300,
-    height: 400,
+    height: 350,
     padding: 20,
     borderWidth: 1,
-    borderRadius: 10
+    borderRadius: 10,
+    marginTop: 30,
   },
   checkBox: {
-    marginTop: 30,
     backgroundColor: 'white',
     borderWidth: 0
   },

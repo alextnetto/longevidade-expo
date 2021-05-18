@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import styles from './styles'
 import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
@@ -11,17 +12,17 @@ function CadastroSms(props) {
     const { navigate } = useNavigation()
     
     async function handleNavigateToFinishPage() {
+        setSpinner(true)
         const api = new Backend()
         const validado = await api.validaSms(state)
-        console.log(validado)
+        setSpinner(false)
         if (validado) {
             navigate('CadastroRealizado', state)
         } else if (state.codigoSms.length < 4) {
-            setTexts({avisoSms: 'Informe o código de 04 digitos enviado por SMS.'})
+            setAviso('Informe o código de 04 digitos enviado por SMS.')
         } else {
-            setTexts({avisoSms: 'O código informado não está correto. Verifique o código enviado por SMS e tente novamente.'})
+            setAviso('O código informado não está correto. Verifique o código enviado por SMS e tente novamente.')
         }
-
     }
     function handleGoBack() {
         navigate('Termos', props.route.params)
@@ -31,13 +32,16 @@ function CadastroSms(props) {
         ...props.route.params,
         codigoSms: ''
     })
-
-    const [ texts, setTexts ] = useState({
-        avisoSms: ''
-    })
+    const [ aviso, setAviso ] = useState('')
+    const [ spinner, setSpinner ] = useState(false)
 
     return(
         <View style={styles.container}>
+            <Spinner
+                visible={spinner}
+                textContent={'Carregando...'}
+                textStyle={styles.spinnerTextStyle}
+            />
             <HeaderCadastro />
             <View style={styles.body}>
                 <Text style={styles.title}> SMS </Text>
@@ -50,7 +54,7 @@ function CadastroSms(props) {
                 style={styles.input}
                 />
                 <Text style={styles.warningText}>
-                    {texts.avisoSms}
+                    {aviso}
                 </Text>
                 <ButtonCadastro 
                     handlerNext={handleNavigateToFinishPage}
