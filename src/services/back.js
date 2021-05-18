@@ -1,7 +1,9 @@
 import axios from 'axios';
+import LocalData from './localData'
 
 const api = axios.create({
-    baseURL: 'https://longevidade-dev.herokuapp.com'
+    baseURL: 'http://localhost:8080'
+    //baseURL: 'https://longevidade-dev.herokuapp.com'
 })
 class Backend {
 
@@ -18,14 +20,17 @@ class Backend {
             "senha": senha,
             "tipoPessoa": "PF"
         }
-        console.log(body)
         const promise = api.post(`/v1/pessoas?aceite=${data.aceite}`, body)
         const resultPromise = promise.then(res => {
-                console.log('OK')
+                const id = res.data.idPessoa
+                console.log(id)
+                const localStorage = new LocalData()
+                localStorage.storeId(id)
+                console.log('API: Pessoa cadastrada', res)
                 return true
             })
             .catch(err => {
-                console.log('Erro')
+                console.log('API: Erro no cadastro', err)
                 return false
             })
         return resultPromise
@@ -42,10 +47,57 @@ class Backend {
         console.log(body)
         const promise = api.post('/v1/sms/valida', body)
         const validado = promise.then(res => {
-                console.log('OK')
+                console.log('API: SMS Validado', res)
                 return true
             }).catch(err => {
-                console.log('Erro')
+                console.log('API: Erro no SMS', err)
+                return false
+            })
+        return validado
+    }
+
+    async completarCadastro(data) {
+        const localStorage = new LocalData()
+        const id = await localStorage.getId()
+        const nome = String(data.nome)
+        const email = String(data.email)
+        const nascRaw = String(data.nascimento)
+        const nascimento = `${nascRaw.substring(4, 8)}-${nascRaw.substring(2, 4)}-${nascRaw.substring(0, 2)}`
+        const genero = String(data.genero)
+        const cep = String(data.cepMask)
+        const endereco = String(data.endereco)
+        const numero = String(data.numero)
+        const complemento = String(data.complemento)
+        const bairro = String(data.bairro)
+        const cidade = String(data.cidade)
+        const estado = String(data.estado)
+        const referencia = String(data.referencia)
+        const body = {
+            "nome": nome.split(' ').slice(0, -1).join(' '),
+            "email": email,
+            "endereco": {
+                "cep": cep,
+                "logradouro": endereco,
+                "numero": numero,
+                "complemento": complemento,
+                "pontoReferencia": referencia,
+                "bairro": bairro,
+                "cidade": cidade,
+                "estado": estado,
+                "tipoEndereco": 1
+            },
+            "idPessoa": id,
+            "sobreNome": nome.split(' ').slice(-1).join(' '),
+            "genero": genero,
+            "dataNascimento": nascimento,
+        }
+        console.log(body)
+        const promise = api.post('/v1/pessoas-fisicas', body)
+        const validado = promise.then(res => {
+                console.log('API: Cadastro completado')
+                return true
+            }).catch(err => {
+                console.log('API: Erro no completar cadastro', err.request)
                 return false
             })
         return validado
