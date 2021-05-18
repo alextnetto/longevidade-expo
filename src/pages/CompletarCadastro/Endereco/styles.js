@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start',
     },
     body: {
-      marginTop: 50,
       alignItems: 'center',
       flex: 1,
     },
@@ -66,6 +65,13 @@ const styles = StyleSheet.create({
       fontSize: 23,
       marginVertical: 20,
       paddingLeft: 10,
+    },
+    warningText: {
+      fontSize: 20,
+      width: 300,
+      color: 'red',
+      textAlign: 'center',
+      marginTop: 20
     }
   });
   

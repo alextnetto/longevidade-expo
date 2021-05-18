@@ -6,12 +6,8 @@ import { useNavigation } from '@react-navigation/native'
 import styles from './styles'
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
-function CadastroRealizado() {
+function CadastroFinalizado() {
     const { navigate } = useNavigation()
-
-    function handleNavigateToCompletarCadastro() {
-        navigate('CompletarCadastro')
-    }
     function handleNavigateToLanding() {
         navigate('Landing')
     }
@@ -21,17 +17,10 @@ function CadastroRealizado() {
             <HeaderCadastro />
             <Text style={styles.title}> Cadastro realizado com sucesso </Text>
             <View style={styles.body}>
-                <Text style={styles.text}>
-                    Que legal ter você por aqui{'\n\n'}
-                    Complete as informações adicionais do seu cadastro{'\n\n'}
-                    Mas não se preocupe você não precisa fazer isso agora
-                </Text>
+                
                 <View style={styles.buttonContainer}>
-                    <RectButton onPress={handleNavigateToCompletarCadastro} style={styles.button}>
-                        <Text style={styles.buttonText}> Completar agora </Text>
-                    </RectButton>
                     <RectButton onPress={handleNavigateToLanding} style={styles.button}>
-                        <Text style={styles.buttonText}> Deixar para depois </Text>
+                        <Text style={styles.buttonText}> Ok </Text>
                     </RectButton>
                 </View>
             </View>
@@ -39,4 +28,4 @@ function CadastroRealizado() {
     ) 
 }
 
-export default CadastroRealizado;
+export default CadastroFinalizado;

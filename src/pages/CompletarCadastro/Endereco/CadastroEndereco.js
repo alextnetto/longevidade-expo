@@ -11,12 +11,11 @@ import Backend from '../../../services/back'
 
 function CadastroEndereco(props) {
     const { navigate } = useNavigation()
-    
-    async function handleNext() {
+    async function handleGoNext() {
         const api = new Backend()
         const cadastro = await api.completarCadastro(state)
         if (cadastro) {
-            navigate('Sms', state)
+            navigate('Finalizado')
         } else {
             alert('Algo deu errado na requisição')
         }
@@ -37,6 +36,7 @@ function CadastroEndereco(props) {
         complemento: '',
         referencia: ''
     })
+    const [ aviso, setAviso ] = useState('')
 
     async function handleCepChange(value) {
         const mask = '99999-999'
@@ -59,7 +59,52 @@ function CadastroEndereco(props) {
             })
         }
     }
-    console.log(state)
+    function valida() {
+        return state.cepValue.length !== 0 &&
+            state.endereco.length !== 0 &&
+            state.numero.length !== 0 &&
+            state.bairro.length !== 0 &&
+            state.cidade.length !== 0 &&
+            state.estado.length !== 0 
+    }
+    // TODO: Fazer função para checkar cep errado
+    async function validaCep() {
+        const cep = String(state.cepValue)
+        if (cep.length === 9) {
+            const data = await getCepData(cep)
+            return data
+        }
+        return false
+    }
+    function handleIncomplete() {
+        if (state.cepValue.length === 0) {
+            setAviso('Informe o CEP do seu endereço.')
+        } else if (state.numero.length === 0) {
+            setAviso('Informe o número do endereço.')
+        } else if (state.endereco.length === 0) {
+            setAviso('Informe o seu endereço. Exemplo (Av., Rua, Praça).')
+        } else if (state.bairro.length === 0) {
+            setAviso('Informe o bairro do seu endereço.')
+        } else if (state.cidade.length === 0) {
+            setAviso('Informe a cidade do seu endereço.')
+        } else if (state.estado.length === 0) {
+            setAviso('Informe o estado do seu endereço.')
+        }
+    }
+
+    var buttonCadastro
+    if (valida()) {
+        buttonCadastro = <ButtonCadastro
+        handlerNext={handleGoNext}
+        handlerBack={handleGoBack}
+        text='Próximo'/>
+    } else {
+        buttonCadastro = <ButtonCadastro 
+        handlerNext={handleIncomplete}
+                            handlerBack={handleGoBack}
+                            text='Próximo'
+                            style={{opacity:0.5}}/>
+    }
     return(
         <View style={styles.container}>
             <HeaderCadastro />
@@ -121,8 +166,9 @@ function CadastroEndereco(props) {
                         value={state.referencia}
                         onChangeText={(value) => setState({...state, referencia: value})}
                     />
-                    </View>
-                <ButtonCadastro handlerBack={handleGoBack} handlerNext={handleNext} text='Próximo'/>
+                </View>
+                <Text style={styles.warningText}> {aviso} </Text>
+                {buttonCadastro}
             </View>
         </View>
     ) 

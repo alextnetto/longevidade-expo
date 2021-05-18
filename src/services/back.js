@@ -2,8 +2,8 @@ import axios from 'axios';
 import LocalData from './localData'
 
 const api = axios.create({
-    baseURL: 'http://localhost:8080'
-    //baseURL: 'https://longevidade-dev.herokuapp.com'
+    //baseURL: 'http://localhost:8080'
+    baseURL: 'https://longevidade-dev.herokuapp.com'
 })
 class Backend {
 
