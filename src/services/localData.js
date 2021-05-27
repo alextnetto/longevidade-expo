@@ -1,24 +1,24 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class LocalData {
-    storeId = async (id) => {
+    storeValue = async (key, value) => {
         try {
-            const stringId = String(id)
-            console.log('Id guardado: ' + stringId)
-            await AsyncStorage.setItem('@userId', stringId)
+            const stringValue = String(value)
+            console.log(`${key} guardado: ` + stringValue)
+            await AsyncStorage.setItem(`@${key}`, stringValue)
         } catch (err) {
             console.log(err)
         }
     }
 
-    getId = async () => {
+    getValue = async (key) => {
         try {
-            const id = await AsyncStorage.getItem('@userId')
-            if(id !== null) {
-                console.log(`Id existe e é: ${id}`)
-                return id
+            const value = await AsyncStorage.getItem(`@${key}`)
+            if(value !== null) {
+                console.log(`${key} existe e é: ${value}`)
+                return value
             } else {
-                console.log('Id não existe')
+                console.log(`${key} não existe`)
             }
         } catch (err) {
             console.log(err)

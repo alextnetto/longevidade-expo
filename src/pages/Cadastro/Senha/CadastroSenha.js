@@ -21,21 +21,13 @@ function CadastroSenha(props) {
         senha2: ''
     })
 
-    const [ texts, setTexts ] = useState({
-        avisoSenha: ''
-    })
+    const [ aviso, setAviso ] = useState()
 
     function handleWrongPassword() {
         if (state.senha1 !== state.senha2) {
-            setTexts({
-                ...texts,
-                avisoSenha: 'As senhas informadas não são iguais. Verifique e tente novamente.'
-            })
+            setAviso('As senhas informadas não são iguais. Verifique e tente novamente.')
         } else {
-            setTexts({
-                ...texts,
-                avisoSenha: 'Sua senha deve conter 06 números.'
-            })
+            setAviso('Sua senha deve conter 06 números.')
         }
     }
     
@@ -76,7 +68,7 @@ function CadastroSenha(props) {
                         maxLength={6}
                     />
                 </View>
-                <Text style={styles.warningText}> {texts.avisoSenha} </Text>
+                <Text style={styles.warningText}> {aviso} </Text>
                 {buttonCadastro}
             </View>
         </View>

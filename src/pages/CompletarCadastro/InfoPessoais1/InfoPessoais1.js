@@ -108,6 +108,7 @@ function InfoPessoais1(props) {
                         value={state.nome}
                         onChangeText={(text) => setState({...state, nome: text})}
                     />
+                    {/* 
                     <Text style={styles.inputTitle}> Número de CPF (opcional)</Text>
                     <TextInput 
                         placeholder='___.___.___-__'
@@ -118,6 +119,7 @@ function InfoPessoais1(props) {
                         onChangeText={handleCpfChange}
                         maxLength={14}
                     />
+                    */}
                     <Text style={styles.inputTitle}> Endereço de email </Text>
                     <TextInput 
                         style={styles.input}

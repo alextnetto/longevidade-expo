@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { mask as masker, unMask } from 'remask'
 
 import styles from './styles'

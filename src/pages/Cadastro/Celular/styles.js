@@ -22,13 +22,6 @@ const styles = StyleSheet.create({
     width: 200,
     fontSize: 23
   },
-  selectContainer: {
-    marginTop: 60
-  },
-  selectTitle: {
-    fontSize: 16,
-    marginBottom: 10
-  },
   warningText: {
     fontSize: 16,
     width: 300,

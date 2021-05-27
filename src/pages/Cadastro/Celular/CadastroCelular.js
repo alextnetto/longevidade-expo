@@ -25,9 +25,9 @@ function CadastroCelular() {
     function handleError() {
         if (state.celularValue.length === 0) {
             
-            setTexts({avisoCelular: 'Informe o número do seu celular.'})
+            setAviso('Informe o número do seu celular.')
         } else {
-            setTexts({avisoCelular: 'O número do celular não foi digitado corretamente. Verifique e tente novamente.'})
+            setAviso('O número do celular não foi digitado corretamente. Verifique e tente novamente.')
         }
     }
     
@@ -35,9 +35,7 @@ function CadastroCelular() {
         celularMask: '',
         celularValue: '',
     })
-    const [ texts, setTexts ] = useState({
-        avisoCelular: ''
-    })
+    const [ aviso, setAviso ] = useState('')
 
     var buttonCadastro
     if (state.celularValue.length === 11) {
@@ -67,7 +65,7 @@ function CadastroCelular() {
                     maxLength={16}
                 />
                 <Text style={styles.warningText}>
-                    {texts.avisoCelular}
+                    {aviso}
                 </Text>
                 {buttonCadastro}
             </View>

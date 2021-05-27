@@ -3,7 +3,7 @@ import LocalData from './localData'
 
 const api = axios.create({
     baseURL: 'http://localhost:8080'
-    // baseURL: 'https://longevidade-dev.herokuapp.com'
+    //baseURL: 'https://longevidade-dev.herokuapp.com'
 })
 class Backend {
 
@@ -23,14 +23,13 @@ class Backend {
         const promise = api.post(`/v1/pessoas?aceite=${data.aceite}`, body)
         const resultPromise = promise.then(res => {
                 const id = res.data.idPessoa
-                console.log(id)
                 const localStorage = new LocalData()
-                localStorage.storeId(id)
-                console.log('API: Pessoa cadastrada', res)
+                localStorage.storeValue('userId', id)
+                console.log('API: Pessoa cadastrada')
                 return true
             })
             .catch(err => {
-                console.log('API: Erro no cadastro', err)
+                console.log('API: Erro no cadastrar', err.response)
                 return false
             })
         return resultPromise
@@ -40,14 +39,14 @@ class Backend {
         const numero = String(data.celularValue)
         const codigoSms = String(data.codigoSms)
         const body = {
-            "ddd": numero.substring(0, 2),
+            "ddd": Number(numero.substring(0, 2)),
             "numero": numero.substring(2, numero.length),
             "codigoSms": codigoSms
         }
-        console.log(body)
+        //console.log(body)
         const promise = api.post('/v1/sms/valida', body)
         const validado = promise.then(res => {
-                console.log('API: SMS Validado', res)
+                console.log('API: SMS Validado')
                 return true
             }).catch(err => {
                 console.log('API: Erro no SMS', err)
@@ -58,7 +57,7 @@ class Backend {
 
     async completarCadastro(data) {
         const localStorage = new LocalData()
-        const id = await localStorage.getId()
+        const id = await localStorage.getValue('userId')
         const nome = String(data.nome)
         const email = String(data.email)
         const nascRaw = String(data.nascimento)
@@ -91,7 +90,6 @@ class Backend {
             "genero": genero,
             "dataNascimento": nascimento,
         }
-        console.log(body)
         const promise = api.post('/v1/pessoas-fisicas', body)
         const validado = promise.then(res => {
                 console.log('API: Cadastro completado')
@@ -103,15 +101,30 @@ class Backend {
         return validado
     }
 
-    tipoTelefone(data) {
-        api.get('/v1/tipos-telefones')
-            .then(res => {
-                console.log(res)
+    login(data) {
+        const numero = String(data.celularValue)
+        const senha = String(data.senha)
+        const body = {
+            "ddd": Number(numero.substring(0, 2)),
+            "numero": numero.substring(2, numero.length),
+            "password": senha
+        }
+        //console.log(body)
+        const promise = api.post('/v1/login', body)
+        const validado = promise.then(res => {
+                console.log('API: Logado')
+                const localStorage = new LocalData()
+                console.log(res.headers)
+                localStorage.storeValue('apiToken', res.headers.authorization)
+                localStorage.storeValue('userId', res.headers.userreference)
+                console.log(localStorage.getValue('userId'))
+                console.log(localStorage.getValue('apiToken'))
+                return true
+            }).catch(err => {
+                console.log('API: Erro no login', err)
+                return false
             })
-            .catch(err => {
-                console.log(err.response)
-
-            })
+        return validado
     }
 }
 
