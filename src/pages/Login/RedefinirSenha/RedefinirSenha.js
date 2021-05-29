@@ -1,28 +1,38 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { RectButton } from 'react-native-gesture-handler'
+import Spinner from 'react-native-loading-spinner-overlay';
 
-import styles from './styles'
-import NavigationButton from '../../../components/NavigationButton/NavigationButton'
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
+import Backend from '../../../services/back'
+import styles from './styles'
+import NavigationButton from '../../../components/NavigationButton/NavigationButton';
 
-function CadastroSenha(props) {
-    const { navigate } = useNavigation()
-    function handleNavigateToCadastroTermos() {
-        navigate('Termos', state)
-    }
-    function handleGoBack() {
-        navigate('Celular', props.route.params)
-    }
-    
+function RedefinirSenha(props) {
     const [ state, setState ] = useState({
         ...props.route.params,
         senha1: '',
         senha2: ''
     })
-
     const [ aviso, setAviso ] = useState()
+    const [ spinner, setSpinner ] = useState(false)
 
+    const { navigate } = useNavigation()
+    async function handleNext() {
+        setSpinner(true)
+        const api = new Backend()
+        const redefinido = await api.redefinirSenha(state)
+        setSpinner(false)
+        if (redefinido) {
+            navigate('Landing')
+        } else {
+            setAviso('Falha na requisição')
+        }
+    }
+    function handleGoBack() {
+        navigate('RedefinirSenhaSms', props.route.params)
+    }
     function handleError() {
         if (state.senha1 !== state.senha2) {
             setAviso('As senhas informadas não são iguais. Verifique e tente novamente.')
@@ -31,25 +41,20 @@ function CadastroSenha(props) {
         }
     }
     
-    var NavigationButton
-    if (state.senha1.length === 6 && state.senha1 === state.senha2) {
-        NavigationButton = <NavigationButton
-                            handlerNext={handleNavigateToCadastroTermos}
-                            handlerBack={handleGoBack}
-                            text='Próximo'/>
-    } else {
-        NavigationButton = <NavigationButton 
-                            handlerNext={handleError}
-                            handlerBack={handleGoBack}
-                            text='Próximo'
-                            style={{opacity:0.5}}/>
+    function validSenha() {
+        return state.senha1.length === 6 && state.senha1 === state.senha2
     }
 
     return(
         <View style={styles.container}>
+            <Spinner
+                visible={spinner}
+                textContent={'Carregando...'}
+                textStyle={styles.spinnerTextStyle}
+            />
             <HeaderCadastro />
             <View style={styles.body}>
-                <Text style={styles.title}> Senha </Text>
+                <Text style={styles.title}> Redefinir senha </Text>
                 <View style={styles.inputContainer}>
                     <TextInput 
                     keyboardType='numeric'
@@ -69,10 +74,17 @@ function CadastroSenha(props) {
                     />
                 </View>
                 <Text style={styles.warningText}> {aviso} </Text>
-                {NavigationButton}
+                <NavigationButton
+                    isValid={validSenha()}
+                    handleBack={handleGoBack}
+                    textBack='Voltar'
+                    handleError={handleError}
+                    handleNext={handleNext}
+                    textNext='Redefinir'
+                />
             </View>
         </View>
     ) 
 }
 
-export default CadastroSenha;
+export default RedefinirSenha;

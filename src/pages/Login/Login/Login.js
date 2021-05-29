@@ -3,10 +3,12 @@ import { View, Text, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { RectButton } from 'react-native-gesture-handler'
 import { mask as masker, unMask } from 'remask'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 import styles from './styles'
 import Backend from '../../../services/back'
+import NavigationButton from '../../../components/NavigationButton/NavigationButton';
 
 function Login() {
     const [ state, setState ] = useState({
@@ -15,13 +17,15 @@ function Login() {
         senha: ''
     })
     const [ aviso, setAviso ] = useState('')
+    const [ spinner, setSpinner ] = useState(false)
 
     const { navigate } = useNavigation()
     async function handleLogin() {
+        setSpinner(true)
         const api = new Backend()
-        const logged = await api.login(state)
-        console.log(logged)
-        if (logged) {
+        const usuarioLogado = await api.login(state)
+        setSpinner(false)
+        if (usuarioLogado) {
             console.log('Front: Logado')
             alert('Logado')
         } else {
@@ -29,10 +33,10 @@ function Login() {
         }
     }
     function handleGoBack() {
-        navigate('EsqueciSenha')
+        navigate('Landing')
     }
     function handleEsqueciSenha() {
-        navigate('EsqueciSenha')
+        navigate('EsqueciSenha', state)
     }
    
     function handleError() {
@@ -61,30 +65,14 @@ function Login() {
     function validateSenha() {
         return state.senha.length === 6
     }
-
-    var buttonLogin
-    if (validateCelular() && validateSenha()) {
-        buttonLogin = <View style={styles.buttonContainer}>
-            <RectButton onPress={handleGoBack} style={styles.buttonBack}>
-            <Text style={styles.buttonText}> Voltar </Text>
-            </RectButton>
-            <RectButton onPress={handleLogin} style={styles.buttonLogin}>
-                <Text style={styles.buttonText}> Logar </Text>
-            </RectButton>
-        </View>
-    } else {
-        buttonLogin = <View style={styles.buttonContainer}>
-                <RectButton onPress={handleGoBack} style={styles.buttonBack}>
-                <Text style={styles.buttonText}> Voltar </Text>
-                </RectButton>
-                <RectButton onPress={handleError} style={{...styles.buttonLogin, opacity:0.5}}>
-                    <Text style={styles.buttonText}> Logar </Text>
-                </RectButton>
-            </View>
-    }
     
     return(
         <View style={styles.container}>
+            <Spinner
+                visible={spinner}
+                textContent={'Carregando...'}
+                textStyle={styles.spinnerTextStyle}
+            />
             <HeaderCadastro />
             <View style={styles.body}>
                 <View style={styles.titleContainer}>
@@ -112,7 +100,14 @@ function Login() {
                     </RectButton>
                 </View>
                 <Text style={styles.warningText}> {aviso} </Text>
-                {buttonLogin}
+                <NavigationButton
+                    isValid={validateCelular() && validateSenha()}
+                    handleBack={handleGoBack}
+                    textBack='Voltar'
+                    handleError={handleError}
+                    handleNext={handleLogin}
+                    textNext='Logar'
+                />
             </View>
         </View>
     ) 

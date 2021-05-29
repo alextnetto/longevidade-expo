@@ -31,6 +31,36 @@ const styles = StyleSheet.create({
     width: 200,
     fontSize: 23
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+  },
+  buttonBack: {
+      backgroundColor: '#aaa',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '50%',
+      height: 50
+  },
+  esqueciSenha: {
+    marginTop: 10,
+    width: '100%',
+  },
+  esqueciSenhaText: {
+    textDecorationLine: 'underline',
+  },
+  buttonLogin: {
+      backgroundColor: '#333',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '50%',
+      height: 50
+  },
+  buttonText: {
+      fontSize: 25,
+      color: '#fff',
+  },
   warningText: {
     fontSize: 16,
     width: 300,

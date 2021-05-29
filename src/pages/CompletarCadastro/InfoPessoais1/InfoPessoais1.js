@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { mask as masker, unMask } from 'remask'
 
 import styles from './styles'
-import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
+import NavigationButton from '../../../components/NavigationButton/NavigationButton'
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
 function InfoPessoais1(props) {
@@ -83,14 +83,14 @@ function InfoPessoais1(props) {
         }
     }
 
-    var buttonCadastro
+    var NavigationButton
     if (validaEmail() && validaCpf() && validaNome()) {
-        buttonCadastro = <ButtonCadastro
+        NavigationButton = <NavigationButton
         handlerNext={handleNavigateToInfoPessoais2}
         handlerBack={handleGoBack}
         text='Próximo'/>
     } else {
-        buttonCadastro = <ButtonCadastro 
+        NavigationButton = <NavigationButton 
         handlerNext={handleIncomplete}
                             handlerBack={handleGoBack}
                             text='Próximo'
@@ -128,7 +128,7 @@ function InfoPessoais1(props) {
                     />
                 </View>
                 <Text style={styles.warningText}> {aviso} </Text>
-                {buttonCadastro}
+                {NavigationButton}
             </View>
         </View>
     ) 

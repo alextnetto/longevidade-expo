@@ -18,7 +18,7 @@ function Landing() {
         navigate('CompletarCadastro')
     }
     function handleNavigateToLoginPage() {
-        navigate('Login')
+        navigate('RedefinirSenhaStack')
     }
 
     return (

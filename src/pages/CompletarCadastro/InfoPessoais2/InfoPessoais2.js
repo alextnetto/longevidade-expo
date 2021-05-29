@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { mask as masker, unMask } from 'remask'
 
 import styles from './styles'
-import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
+import NavigationButton from '../../../components/NavigationButton/NavigationButton'
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 import RadioButton from '../../../components/RadioButton/RadioButton'
 
@@ -57,14 +57,14 @@ function InfoPessoais2(props) {
         }
     }
 
-    var buttonCadastro
+    var NavigationButton
     if (validaGenero() && validaNascimento()) {
-        buttonCadastro = <ButtonCadastro
+        NavigationButton = <NavigationButton
                             handlerNext={handleNextPage}
                             handlerBack={handleGoBack}
                             text='Próximo'/>
     } else {
-        buttonCadastro = <ButtonCadastro 
+        NavigationButton = <NavigationButton 
                             handlerNext={handleIncomplete}
                             handlerBack={handleGoBack}
                             text='Próximo'
@@ -120,7 +120,7 @@ function InfoPessoais2(props) {
                     </View>
                 </View>
                 <Text style={styles.warningText}> {aviso} </Text>
-                {buttonCadastro}
+                {NavigationButton}
             </View>
         </View>
     ) 

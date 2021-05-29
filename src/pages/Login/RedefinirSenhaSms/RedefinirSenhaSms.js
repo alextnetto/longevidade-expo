@@ -1,33 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { RectButton } from 'react-native-gesture-handler'
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import styles from './styles'
-import NavigationButton from '../../../components/NavigationButton/NavigationButton'
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 import Backend from '../../../services/back'
+import NavigationButton from '../../../components/NavigationButton/NavigationButton';
 
-function CadastroSms(props) {
-    const { navigate } = useNavigation()
-    
-    async function handleNavigateToFinishPage() {
-        setSpinner(true)
-        const api = new Backend()
-        const validado = await api.validaSms(state)
-        setSpinner(false)
-        if (validado) {
-            navigate('CadastroRealizado', state)
-        } else if (state.codigoSms.length < 4) {
-            setAviso('Informe o código de 04 digitos enviado por SMS.')
-        } else {
-            setAviso('O código informado não está correto. Verifique o código enviado por SMS e tente novamente.')
-        }
-    }
-    function handleGoBack() {
-        navigate('Termos', props.route.params)
-    }
-
+function RedefinirSenhaSms(props) {
     const [ state, setState ] = useState({
         ...props.route.params,
         codigoSms: ''
@@ -35,6 +17,33 @@ function CadastroSms(props) {
     const [ aviso, setAviso ] = useState('')
     const [ spinner, setSpinner ] = useState(false)
 
+    const { navigate } = useNavigation()
+    async function handleNext() {
+        setSpinner(true)
+        const api = new Backend()
+        const validado = await api.validaSms(state)
+        setSpinner(false)
+        if (validado) {
+            // navigate('CadastroRealizado', state)
+            console.log('Front: SMS validado')
+            navigate('RedefinirSenha', props.route.params)
+        } else {
+            setAviso('O código informado não está correto. Verifique o código enviado por SMS e tente novamente.')
+        }
+    }
+    function handleGoBack() {
+        navigate('EsqueciSenha', props.route.params)
+    }
+    function handleError() {
+        if (!validSms()) {
+            setAviso('Informe o código de 04 digitos enviado por SMS.')
+        }
+    }
+
+    function validSms() {
+        return state.codigoSms.length === 4
+    }
+    
     return(
         <View style={styles.container}>
             <Spinner
@@ -56,14 +65,17 @@ function CadastroSms(props) {
                 <Text style={styles.warningText}>
                     {aviso}
                 </Text>
-                <NavigationButton 
-                    handlerNext={handleNavigateToFinishPage}
-                    handlerBack={handleGoBack}
-                    text='Próximo'
+                <NavigationButton
+                    isValid={validSms()}
+                    handleBack={handleGoBack}
+                    textBack='Voltar'
+                    handleError={handleError}
+                    handleNext={handleNext}
+                    textNext='Próximo'
                 />
             </View>
         </View>
     ) 
 }
 
-export default CadastroSms;
+export default RedefinirSenhaSms;

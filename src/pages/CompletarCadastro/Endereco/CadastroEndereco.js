@@ -5,7 +5,7 @@ import { mask as masker, unMask } from 'remask'
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import styles from './styles'
-import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
+import NavigationButton from '../../../components/NavigationButton/NavigationButton'
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 import getCepData from '../../../services/cep'
 import Backend from '../../../services/back'
@@ -96,14 +96,14 @@ function CadastroEndereco(props) {
         }
     }
 
-    var buttonCadastro
+    var NavigationButton
     if (valida()) {
-        buttonCadastro = <ButtonCadastro
+        NavigationButton = <NavigationButton
         handlerNext={handleGoNext}
         handlerBack={handleGoBack}
         text='Próximo'/>
     } else {
-        buttonCadastro = <ButtonCadastro 
+        NavigationButton = <NavigationButton 
         handlerNext={handleIncomplete}
                             handlerBack={handleGoBack}
                             text='Próximo'
@@ -177,7 +177,7 @@ function CadastroEndereco(props) {
                     />
                 </View>
                 <Text style={styles.warningText}> {aviso} </Text>
-                {buttonCadastro}
+                {NavigationButton}
             </View>
         </View>
     ) 

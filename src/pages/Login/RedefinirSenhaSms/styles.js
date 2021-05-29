@@ -6,30 +6,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white'
   },
-  titleContainer: {
-    height: '15%',
-    justifyContent: 'center'
-  },
   title: {
-    fontSize: 30,
-    color: 'black',
-    justifyContent: 'center',
+    fontSize: 33,
+    color: 'black'
   },
   body: {
-    height: '87%',
+    marginTop: 70,
     alignItems: 'center',
     flex: 1,
   },
-  inputContainer: {
-    height: '40%',
-    justifyContent: 'center',
-  },
   input: {
-    marginTop: 20,
+    marginTop: 200,
+    fontSize: 30,
     borderBottomColor: '#000',
     borderBottomWidth: 1,
-    width: 200,
-    fontSize: 23
+    width: 120,
+    letterSpacing: 8,
+    paddingStart: 10
   },
   warningText: {
     fontSize: 16,
@@ -38,6 +31,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 100
   }
-});
-
-export default styles;
+  });
+  
+export default styles; 

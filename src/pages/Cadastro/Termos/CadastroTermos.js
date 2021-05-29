@@ -5,14 +5,21 @@ import { CheckBox } from 'react-native-elements'
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import styles from './styles'
-import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
+import NavigationButton from '../../../components/NavigationButton/NavigationButton'
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 import Backend from '../../../services/back'
 
 function CadastroTermos(props) {
+    const [ state, setState ] = useState({
+        ...props.route.params,
+        aceite: false
+    })
+
+    const [ aviso, setAviso ] = useState('')
+    const [ spinner, setSpinner ] = useState(false)
+
     const { navigate } = useNavigation()
-    
-    async function handleNavigateToCadastroSms() {
+    async function handleNext() {
         setSpinner(true)
         const api = new Backend()
         const cadastro = await api.cadastrarPessoa(state)
@@ -26,32 +33,11 @@ function CadastroTermos(props) {
     function handleGoBack() {
         navigate('Senha', props.route.params)
     }
-    function handleFalseAceite() {
+
+    function handleError() {
         setAviso("Para prosseguir é necessário aceitar os 'Termos de Uso'.")
     }
-
-    const [ state, setState ] = useState({
-        ...props.route.params,
-        aceite: false
-    })
-
-    const [ aviso, setAviso ] = useState('')
-    const [ spinner, setSpinner ] = useState(false)
     
-    var buttonCadastro
-    if (state.aceite) {
-        buttonCadastro = <ButtonCadastro
-                            handlerNext={handleNavigateToCadastroSms}
-                            handlerBack={handleGoBack}
-                            text='Próximo'/>
-    } else {
-        buttonCadastro = <ButtonCadastro 
-                            handlerNext={handleFalseAceite}
-                            handlerBack={handleGoBack}
-                            text='Próximo'
-                            style={{opacity:0.5}}/>
-    }
-
     return(
         <View style={styles.container}>
             <Spinner
@@ -80,7 +66,14 @@ function CadastroTermos(props) {
                 <Text style={styles.warningText}>
                     {aviso}
                 </Text>
-                {buttonCadastro}
+                <NavigationButton
+                    isValid={state.aceite}
+                    handleBack={handleGoBack}
+                    textBack='Voltar'
+                    handleError={handleError}
+                    handleNext={handleNext}
+                    textNext='Próximo'
+                />
             </View>
 
         </View>

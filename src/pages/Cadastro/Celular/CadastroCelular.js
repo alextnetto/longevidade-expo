@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { mask as masker, unMask } from 'remask'
 
 import styles from './styles'
-import ButtonCadastro from '../../../components/ButtonCadastro/ButtonCadastro'
+import NavigationButton from '../../../components/NavigationButton/NavigationButton'
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
 function CadastroCelular() {
@@ -37,14 +37,14 @@ function CadastroCelular() {
     })
     const [ aviso, setAviso ] = useState('')
 
-    var buttonCadastro
+    var NavigationButton
     if (state.celularValue.length === 11) {
-        buttonCadastro = <ButtonCadastro 
+        NavigationButton = <NavigationButton 
             handlerNext={handleNavigateToCadastroSenha}
             handlerBack={handleGoBack}
             text='Próximo'/>
     } else {
-        buttonCadastro = <ButtonCadastro 
+        NavigationButton = <NavigationButton 
             handlerNext={handleError}
             handlerBack={handleGoBack} 
             text='Próximo'
@@ -67,7 +67,7 @@ function CadastroCelular() {
                 <Text style={styles.warningText}>
                     {aviso}
                 </Text>
-                {buttonCadastro}
+                {NavigationButton}
             </View>
         </View>
     ) 

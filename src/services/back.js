@@ -114,14 +114,51 @@ class Backend {
         const validado = promise.then(res => {
                 console.log('API: Logado')
                 const localStorage = new LocalData()
-                console.log(res.headers)
                 localStorage.storeValue('apiToken', res.headers.authorization)
                 localStorage.storeValue('userId', res.headers.userreference)
-                console.log(localStorage.getValue('userId'))
-                console.log(localStorage.getValue('apiToken'))
+                localStorage.getValue('userId')
+                localStorage.getValue('apiToken')
                 return true
             }).catch(err => {
                 console.log('API: Erro no login', err)
+                return false
+            })
+        return validado
+    }
+
+    esqueciSenhaSms(data) {
+        const numero = String(data.celularValue)
+        const body = {
+            "ddd": Number(numero.substring(0, 2)),
+            "numero": numero.substring(2, numero.length)
+        }
+        //console.log(body)
+        const promise = api.post('/v1/senhas/enviar-codigo', body)
+        const validado = promise.then(res => {
+                console.log('API: SMS enviado')
+                return true
+            }).catch(err => {
+                console.log('API: Erro no envio do SMS', err)
+                return false
+            })
+        return validado
+    }
+
+    redefinirSenha(data) {
+        const numero = String(data.celularValue)
+        const senha = String(data.senha1)
+        const body = {
+            "ddd": Number(numero.substring(0, 2)),
+            "numero": numero.substring(2, numero.length),
+            "senha": senha
+        }
+        //console.log(body)
+        const promise = api.post('/v1/senhas/redefinir', body)
+        const validado = promise.then(res => {
+                console.log('API: Senha redefinida com sucesso')
+                return true
+            }).catch(err => {
+                console.log('API: Erro ao redefinir senha', err)
                 return false
             })
         return validado

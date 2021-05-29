@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         position: 'absolute',
-        bottom: 100,
+        bottom: '13%',
     },
     buttonBack: {
         backgroundColor: '#aaa',
