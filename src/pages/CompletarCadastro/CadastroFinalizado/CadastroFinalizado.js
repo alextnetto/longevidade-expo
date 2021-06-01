@@ -15,8 +15,8 @@ function CadastroFinalizado() {
     return(
         <View style={styles.container}>
             <HeaderCadastro />
-            <Text style={styles.title}> Cadastro realizado com sucesso </Text>
             <View style={styles.body}>
+            <Text style={styles.title}> Cadastro realizado com sucesso </Text>
                 
                 <View style={styles.buttonContainer}>
                     <RectButton onPress={handleNavigateToLanding} style={styles.button}>

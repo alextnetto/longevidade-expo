@@ -9,7 +9,7 @@ import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
 function InfoPessoais1(props) {
     const { navigate } = useNavigation()
-    function handleNavigateToInfoPessoais2() {
+    function handleNext() {
         navigate('InfoPessoais2', state)
     }
     function handleGoBack() {
@@ -69,7 +69,7 @@ function InfoPessoais1(props) {
         })
     }
 
-    function handleIncomplete() {
+    function handleError() {
         if (!validaNome()) {
             setAviso('Informe o seu nome completo.')
         } else if (state.cpf.length === 0) {
@@ -83,19 +83,6 @@ function InfoPessoais1(props) {
         }
     }
 
-    var NavigationButton
-    if (validaEmail() && validaCpf() && validaNome()) {
-        NavigationButton = <NavigationButton
-        handlerNext={handleNavigateToInfoPessoais2}
-        handlerBack={handleGoBack}
-        text='Próximo'/>
-    } else {
-        NavigationButton = <NavigationButton 
-        handlerNext={handleIncomplete}
-                            handlerBack={handleGoBack}
-                            text='Próximo'
-                            style={{opacity:0.5}}/>
-    }
     return(
         <View style={styles.container}>
             <HeaderCadastro />
@@ -128,7 +115,14 @@ function InfoPessoais1(props) {
                     />
                 </View>
                 <Text style={styles.warningText}> {aviso} </Text>
-                {NavigationButton}
+                <NavigationButton
+                    isValid={validaEmail() && validaCpf() && validaNome()}
+                    handleBack={handleGoBack}
+                    textBack='Voltar'
+                    handleError={handleError}
+                    handleNext={handleNext}
+                    textNext='Próximo'
+                />
             </View>
         </View>
     ) 

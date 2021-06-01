@@ -6,23 +6,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white'
   },
+  body: {
+    flex: 1,
+    width: '100%',
+    marginTop: '-8%',
+    borderTopStartRadius: 30,
+    borderTopEndRadius: 30,
+    backgroundColor: 'white',
+    alignItems: 'center',
+  },
   titleContainer: {
     height: '15%',
     justifyContent: 'center'
   },
   title: {
+    marginTop: 40,
     fontSize: 30,
     color: 'black',
     justifyContent: 'center',
   },
-  body: {
-    height: '87%',
-    alignItems: 'center',
-    flex: 1,
-  },
   inputContainer: {
     height: '40%',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
   },
   input: {
     marginTop: 20,

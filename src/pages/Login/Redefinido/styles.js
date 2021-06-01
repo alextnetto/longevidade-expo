@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: 'white'
   },
   body: {
     flex: 1,
@@ -14,30 +15,27 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
   },
-  titleContainer: {
-    height: '13%',
-    justifyContent: 'center'
-  },
   title: {
-    fontSize: 27,
-    color: 'black'
-  },
-  inputContainer: {
-    height: '60%',
+    marginTop: 30,
+    fontSize: 30,
+    color: 'black',
     justifyContent: 'center',
   },
-  input: {
-    borderBottomColor: '#000',
-    borderBottomWidth: 1,
-    width: 200,
-    fontSize: 23
+  buttonContainer: {
+    marginTop: 200,
+    alignItems: 'center'
   },
-  warningText: {
-    fontSize: 16,
+  button: {
     width: 300,
-    color: 'red',
-    textAlign: 'center',
+    height: 70,
+    marginTop: 20,
+    backgroundColor: '#d3d3d3',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+  },
+  buttonText: {
+    fontSize: 20,
   }
-});
-
-export default styles;
+  });
+export default styles; 

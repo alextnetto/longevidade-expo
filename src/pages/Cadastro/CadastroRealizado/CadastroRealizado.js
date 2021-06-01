@@ -19,8 +19,8 @@ function CadastroRealizado() {
     return(
         <View style={styles.container}>
             <HeaderCadastro />
-            <Text style={styles.title}> Cadastro realizado com sucesso </Text>
             <View style={styles.body}>
+            <Text style={styles.title}> Cadastro realizado com sucesso </Text>
                 <Text style={styles.text}>
                     Que legal ter você por aqui{'\n\n'}
                     Complete as informações adicionais do seu cadastro{'\n\n'}

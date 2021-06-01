@@ -28,7 +28,7 @@ function EsqueciSenha(props) {
             console.log('Front: SMS enviado')
             navigate('RedefinirSenhaSms', state)
         } else {
-            setAviso('Celular não cadastrado')
+            setAviso('O número do celular informado não está cadastrado. Verifique e tente novamente.')
         }
     }
     function handleGoBack() {

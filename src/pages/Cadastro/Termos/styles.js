@@ -6,22 +6,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white'
   },
+  body: {
+    flex: 1,
+    width: '100%',
+    marginTop: '-8%',
+    borderTopStartRadius: 30,
+    borderTopEndRadius: 30,
+    backgroundColor: 'white',
+    alignItems: 'center',
+  },
+  titleContainer: {
+    height: '13%',
+    justifyContent: 'center'
+  },
   title: {
-    fontSize: 33,
+    fontSize: 27,
     color: 'black'
   },
-  body: {
-    marginTop: 30,
-    alignItems: 'center',
-    flex: 1,
+  inputContainer: {
+    height: '60%',
   },
   scrollContainer: {
     width: 300,
-    height: 350,
+    height: '85%',
     padding: 20,
     borderWidth: 1,
     borderRadius: 10,
-    marginTop: 30,
   },
   checkBox: {
     backgroundColor: 'white',

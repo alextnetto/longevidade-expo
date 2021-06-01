@@ -8,13 +8,20 @@ import NavigationButton from '../../../components/NavigationButton/NavigationBut
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
 function CadastroCelular() {
+    const [ state, setState ] = useState({
+        celularMask: '',
+        celularValue: '',
+    })
+    const [ aviso, setAviso ] = useState('')
+
     const { navigate } = useNavigation()
-    function handleNavigateToCadastroSenha() {
+    function handleNext() {
         navigate('Senha', state)
     }
     function handleGoBack() {
         navigate('Landing')
     }
+
     function handleCelularChange(value) {
         const mask = '(99) 9 9999-9999'
         setState({
@@ -30,44 +37,39 @@ function CadastroCelular() {
             setAviso('O número do celular não foi digitado corretamente. Verifique e tente novamente.')
         }
     }
-    
-    const [ state, setState ] = useState({
-        celularMask: '',
-        celularValue: '',
-    })
-    const [ aviso, setAviso ] = useState('')
 
-    var NavigationButton
-    if (state.celularValue.length === 11) {
-        NavigationButton = <NavigationButton 
-            handlerNext={handleNavigateToCadastroSenha}
-            handlerBack={handleGoBack}
-            text='Próximo'/>
-    } else {
-        NavigationButton = <NavigationButton 
-            handlerNext={handleError}
-            handlerBack={handleGoBack} 
-            text='Próximo'
-            style={{opacity:0.5}}/>
+    function validCelular() {
+        return state.celularValue.length === 11
     }
 
     return(
         <View style={styles.container}>
             <HeaderCadastro />
             <View style={styles.body}>
-                <Text style={styles.title}> Celular </Text>
-                <TextInput
-                    style={styles.input}
-                    keyboardType='numeric'
-                    placeholder='(__) _ ____-____'
-                    value={state.celularMask}
-                    onChangeText={handleCelularChange}
-                    maxLength={16}
-                />
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}> Celular </Text>
+                </View>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.input}
+                        keyboardType='numeric'
+                        placeholder='(__) _ ____-____'
+                        value={state.celularMask}
+                        onChangeText={handleCelularChange}
+                        maxLength={16}
+                    />
+                </View>
                 <Text style={styles.warningText}>
                     {aviso}
                 </Text>
-                {NavigationButton}
+                <NavigationButton
+                    isValid={validCelular()}
+                    handleBack={handleGoBack}
+                    textBack='Voltar'
+                    handleError={handleError}
+                    handleNext={handleNext}
+                    textNext='Próximo'
+                />
             </View>
         </View>
     ) 

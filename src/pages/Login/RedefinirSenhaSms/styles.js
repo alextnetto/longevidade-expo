@@ -6,14 +6,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white'
   },
+  body: {
+    flex: 1,
+    width: '100%',
+    marginTop: '-8%',
+    borderTopStartRadius: 30,
+    borderTopEndRadius: 30,
+    backgroundColor: 'white',
+    alignItems: 'center',
+  },
   title: {
+    marginTop: 30,
     fontSize: 33,
     color: 'black'
-  },
-  body: {
-    marginTop: 70,
-    alignItems: 'center',
-    flex: 1,
   },
   input: {
     marginTop: 200,

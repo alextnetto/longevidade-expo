@@ -8,9 +8,13 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start',
     },
     body: {
-      marginTop: 50,
-      alignItems: 'center',
       flex: 1,
+      width: '100%',
+      marginTop: '-8%',
+      borderTopStartRadius: 30,
+      borderTopEndRadius: 30,
+      backgroundColor: 'white',
+      alignItems: 'center',
     },
     title: {
       fontSize: 27,

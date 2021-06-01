@@ -11,22 +11,6 @@ import getCepData from '../../../services/cep'
 import Backend from '../../../services/back'
 
 function CadastroEndereco(props) {
-    const { navigate } = useNavigation()
-    async function handleGoNext() {
-        setSpinner(true)
-        const api = new Backend()
-        const cadastro = await api.completarCadastro(state)
-        setSpinner(false)
-        if (cadastro) {
-            navigate('Finalizado')
-        } else {
-            setAviso('Algo deu errado na requisição')
-        }
-    }
-    function handleGoBack() {
-        navigate('InfoPessoais2')
-    }
-
     const [ state, setState ] = useState({
         ...props.route.params,
         cepValue: '',
@@ -41,6 +25,22 @@ function CadastroEndereco(props) {
     })
     const [ aviso, setAviso ] = useState('')
     const [ spinner, setSpinner ] = useState(false)
+
+    const { navigate } = useNavigation()
+    async function handleNext() {
+        setSpinner(true)
+        const api = new Backend()
+        const cadastro = await api.completarCadastro(state)
+        setSpinner(false)
+        if (cadastro) {
+            navigate('Finalizado')
+        } else {
+            setAviso('Algo deu errado na requisição')
+        }
+    }
+    function handleGoBack() {
+        navigate('InfoPessoais2')
+    }
 
     async function handleCepChange(value) {
         const mask = '99999-999'
@@ -63,7 +63,8 @@ function CadastroEndereco(props) {
             })
         }
     }
-    function valida() {
+    console.log(state)
+    function validNext() {
         return state.cepValue.length !== 0 &&
             state.endereco.length !== 0 &&
             state.numero.length !== 0 &&
@@ -80,7 +81,8 @@ function CadastroEndereco(props) {
         }
         return false
     }
-    function handleIncomplete() {
+    52
+    function handleError() {
         if (state.cepValue.length === 0) {
             setAviso('Informe o CEP do seu endereço.')
         } else if (state.numero.length === 0) {
@@ -96,19 +98,6 @@ function CadastroEndereco(props) {
         }
     }
 
-    var NavigationButton
-    if (valida()) {
-        NavigationButton = <NavigationButton
-        handlerNext={handleGoNext}
-        handlerBack={handleGoBack}
-        text='Próximo'/>
-    } else {
-        NavigationButton = <NavigationButton 
-        handlerNext={handleIncomplete}
-                            handlerBack={handleGoBack}
-                            text='Próximo'
-                            style={{opacity:0.5}}/>
-    }
     return(
         <View style={styles.container}>
             <Spinner
@@ -177,7 +166,14 @@ function CadastroEndereco(props) {
                     />
                 </View>
                 <Text style={styles.warningText}> {aviso} </Text>
-                {NavigationButton}
+                <NavigationButton
+                    isValid={validNext()}
+                    handleBack={handleGoBack}
+                    textBack='Voltar'
+                    handleError={handleError}
+                    handleNext={handleNext}
+                    textNext='Próximo'
+                />
             </View>
         </View>
     ) 

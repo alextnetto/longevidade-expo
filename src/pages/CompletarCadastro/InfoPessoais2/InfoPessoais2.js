@@ -9,14 +9,6 @@ import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 import RadioButton from '../../../components/RadioButton/RadioButton'
 
 function InfoPessoais2(props) {
-    const { navigate } = useNavigation()
-    function handleNextPage() {
-        navigate('Endereco', state)
-    }
-    function handleGoBack() {
-        navigate('InfoPessoais1')
-    }
-    
     const [ state, setState ] = useState({
         ...props.route.params,
         //nascimento: new Date(),
@@ -26,12 +18,20 @@ function InfoPessoais2(props) {
     })
     const [ aviso, setAviso ] = useState('')
     
-    function validaNascimento() {
+    const { navigate } = useNavigation()
+    function handleNext() {
+        navigate('Endereco', state)
+    }
+    function handleGoBack() {
+        navigate('InfoPessoais1')
+    }
+    
+    function validNascimento() {
         const nascimento = String(state.nascimentoMask)
         const re = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/;
         return re.test(nascimento);
     }
-    function validaGenero() {
+    function validGenero() {
         return state.genero !== ''
     }
 
@@ -46,29 +46,15 @@ function InfoPessoais2(props) {
             nascimentoMask: masker(value, mask)
         })
     }
-    function handleIncomplete() {
+    function handleError() {
         if (state.nascimento.length === 0) {
             setAviso('Informe a sua data de nascimento.')
-        } else if (!validaNascimento()) {
+        } else if (!validNascimento()) {
             setAviso('A data de nascimento informada não está correta. Verifique e tente novamente.')
         }
         else{
             setAviso('Selecione o seu gênero.')
         }
-    }
-
-    var NavigationButton
-    if (validaGenero() && validaNascimento()) {
-        NavigationButton = <NavigationButton
-                            handlerNext={handleNextPage}
-                            handlerBack={handleGoBack}
-                            text='Próximo'/>
-    } else {
-        NavigationButton = <NavigationButton 
-                            handlerNext={handleIncomplete}
-                            handlerBack={handleGoBack}
-                            text='Próximo'
-                            style={{opacity:0.5}}/>
     }
 
     return(
@@ -120,7 +106,14 @@ function InfoPessoais2(props) {
                     </View>
                 </View>
                 <Text style={styles.warningText}> {aviso} </Text>
-                {NavigationButton}
+                <NavigationButton
+                    isValid={validGenero() && validNascimento()}
+                    handleBack={handleGoBack}
+                    textBack='Voltar'
+                    handleError={handleError}
+                    handleNext={handleNext}
+                    textNext='Próximo'
+                />
             </View>
         </View>
     ) 

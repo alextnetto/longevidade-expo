@@ -7,13 +7,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   title: {
+    marginTop: 20,
     fontSize: 27,
     color: 'black'
   },
   body: {
-    marginTop: 70,
-    alignItems: 'center',
     flex: 1,
+    width: '100%',
+    marginTop: '-8%',
+    borderTopStartRadius: 30,
+    borderTopEndRadius: 30,
+    backgroundColor: 'white',
+    alignItems: 'center',
   },
   inputContainer: {
     marginTop: 70

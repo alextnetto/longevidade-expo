@@ -27,9 +27,9 @@ function Login() {
         setSpinner(false)
         if (usuarioLogado) {
             console.log('Front: Logado')
-            alert('Logado')
+            navigate('Logado')
         } else {
-            setAviso('Celular não cadastrado ou senha incorreta')
+            setAviso('Número do celular ou senha de acesso incorreta.')
         }
     }
     function handleGoBack() {
@@ -41,13 +41,13 @@ function Login() {
    
     function handleError() {
         if (state.celularValue.length === 0) {
-            setAviso('Informe o número do seu celular.')
+            setAviso('Número do celular ou senha de acesso incorreta.')
         } else if (!validateCelular()) {
-            setAviso('O número do celular não foi digitado corretamente. Verifique e tente novamente.')
+            setAviso('Número do celular ou senha de acesso incorreta.')
         } else if (state.senha.length === 0) {
-            setAviso('Informe a sua senha de acesso')
+            setAviso('Número do celular ou senha de acesso incorreta.')
         } else if (!validateSenha()) {
-            setAviso('Senha incompleta')
+            setAviso('Número do celular ou senha de acesso incorreta.')
         }
     }
     function handleCelularChange(value) {

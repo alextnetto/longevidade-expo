@@ -25,7 +25,7 @@ function RedefinirSenha(props) {
         const redefinido = await api.redefinirSenha(state)
         setSpinner(false)
         if (redefinido) {
-            navigate('Landing')
+            navigate('Redefinido')
         } else {
             setAviso('Falha na requisição')
         }

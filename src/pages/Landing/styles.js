@@ -6,17 +6,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white'
   },
-  header: {
-    marginTop: 40,
-    height: 70,
-    backgroundColor: '#be0000',
+  body: {
+    flex: 1,
     width: '100%',
+    marginTop: '-8%',
+    borderTopStartRadius: 30,
+    borderTopEndRadius: 30,
+    backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center'
-  },
-  headerTitle: {
-    fontSize: 27,
-    color: 'white'
   },
   buttonContainer: {
     marginTop: 200,

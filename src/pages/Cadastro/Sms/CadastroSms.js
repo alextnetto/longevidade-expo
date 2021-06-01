@@ -9,17 +9,21 @@ import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 import Backend from '../../../services/back'
 
 function CadastroSms(props) {
+    const [ state, setState ] = useState({
+        ...props.route.params,
+        codigoSms: ''
+    })
+    const [ aviso, setAviso ] = useState('')
+    const [ spinner, setSpinner ] = useState(false)
+
     const { navigate } = useNavigation()
-    
-    async function handleNavigateToFinishPage() {
+    async function handleNext() {
         setSpinner(true)
         const api = new Backend()
         const validado = await api.validaSms(state)
         setSpinner(false)
         if (validado) {
             navigate('CadastroRealizado', state)
-        } else if (state.codigoSms.length < 4) {
-            setAviso('Informe o código de 04 digitos enviado por SMS.')
         } else {
             setAviso('O código informado não está correto. Verifique o código enviado por SMS e tente novamente.')
         }
@@ -28,12 +32,15 @@ function CadastroSms(props) {
         navigate('Termos', props.route.params)
     }
 
-    const [ state, setState ] = useState({
-        ...props.route.params,
-        codigoSms: ''
-    })
-    const [ aviso, setAviso ] = useState('')
-    const [ spinner, setSpinner ] = useState(false)
+    function handleError() {
+        if (!validSms()) {
+            setAviso('Informe o código de 04 digitos enviado por SMS.')
+        }
+    }
+
+    function validSms() {
+        return state.codigoSms.length === 4
+    }
 
     return(
         <View style={styles.container}>
@@ -56,10 +63,13 @@ function CadastroSms(props) {
                 <Text style={styles.warningText}>
                     {aviso}
                 </Text>
-                <NavigationButton 
-                    handlerNext={handleNavigateToFinishPage}
-                    handlerBack={handleGoBack}
-                    text='Próximo'
+                <NavigationButton
+                    isValid={validSms()}
+                    handleBack={handleGoBack}
+                    textBack='Voltar'
+                    handleError={handleError}
+                    handleNext={handleNext}
+                    textNext='Próximo'
                 />
             </View>
         </View>

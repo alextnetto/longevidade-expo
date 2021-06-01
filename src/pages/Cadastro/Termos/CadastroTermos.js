@@ -47,22 +47,26 @@ function CadastroTermos(props) {
             />
             <HeaderCadastro />
             <View style={styles.body}>
-                <Text style={styles.title}> Termos </Text>
-                <View style={styles.scrollContainer}>
-                    <ScrollView style={styles.scroll}>
-                        <Text style={styles.text}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </Text>
-                    </ScrollView>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}> Termos </Text>
                 </View>
-                <CheckBox
-                    center
-                    iconRight
-                    title="Aceito os termos e condições"
-                    checked={state.aceite}
-                    onPress={() => setState({...state, aceite: !state.aceite})}
-                    containerStyle={styles.checkBox}
-                />
+                <View style={styles.inputContainer}>
+                    <View style={styles.scrollContainer}>
+                        <ScrollView style={styles.scroll}>
+                            <Text style={styles.text}>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </Text>
+                        </ScrollView>
+                    </View>
+                    <CheckBox
+                        center
+                        iconRight
+                        title="Aceito os termos e condições"
+                        checked={state.aceite}
+                        onPress={() => setState({...state, aceite: !state.aceite})}
+                        containerStyle={styles.checkBox}
+                    />
+                </View>
                 <Text style={styles.warningText}>
                     {aviso}
                 </Text>

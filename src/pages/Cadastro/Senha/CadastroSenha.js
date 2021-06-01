@@ -8,7 +8,7 @@ import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
 function CadastroSenha(props) {
     const { navigate } = useNavigation()
-    function handleNavigateToCadastroTermos() {
+    function handleNext() {
         navigate('Termos', state)
     }
     function handleGoBack() {
@@ -31,25 +31,17 @@ function CadastroSenha(props) {
         }
     }
     
-    var NavigationButton
-    if (state.senha1.length === 6 && state.senha1 === state.senha2) {
-        NavigationButton = <NavigationButton
-                            handlerNext={handleNavigateToCadastroTermos}
-                            handlerBack={handleGoBack}
-                            text='Próximo'/>
-    } else {
-        NavigationButton = <NavigationButton 
-                            handlerNext={handleError}
-                            handlerBack={handleGoBack}
-                            text='Próximo'
-                            style={{opacity:0.5}}/>
+    function validSenha() {
+        return state.senha1.length === 6 && state.senha1 === state.senha2
     }
 
     return(
         <View style={styles.container}>
             <HeaderCadastro />
             <View style={styles.body}>
-                <Text style={styles.title}> Senha </Text>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}> Senha </Text>
+                </View>
                 <View style={styles.inputContainer}>
                     <TextInput 
                     keyboardType='numeric'
@@ -69,7 +61,14 @@ function CadastroSenha(props) {
                     />
                 </View>
                 <Text style={styles.warningText}> {aviso} </Text>
-                {NavigationButton}
+                <NavigationButton
+                    isValid={validSenha()}
+                    handleBack={handleGoBack}
+                    textBack='Voltar'
+                    handleError={handleError}
+                    handleNext={handleNext}
+                    textNext='Próximo'
+                />
             </View>
         </View>
     ) 
