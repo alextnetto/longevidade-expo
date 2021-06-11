@@ -64,7 +64,7 @@ class Backend {
         const nascimento = `${nascRaw.substring(4, 8)}-${nascRaw.substring(2, 4)}-${nascRaw.substring(0, 2)}`
         const genero = String(data.genero)
         const cep = String(data.cepMask)
-        const endereco = String(data.endereco)
+        const logradouro = String(data.logradouro)
         const numero = String(data.numero)
         const complemento = String(data.complemento)
         const bairro = String(data.bairro)
@@ -76,7 +76,7 @@ class Backend {
             "email": email,
             "endereco": {
                 "cep": cep,
-                "logradouro": endereco,
+                "logradouro": logradouro,
                 "numero": numero,
                 "complemento": complemento,
                 "pontoReferencia": referencia,
@@ -159,6 +159,43 @@ class Backend {
                 return true
             }).catch(err => {
                 console.log('API: Erro ao redefinir senha', err)
+                return false
+            })
+        return validado
+    }
+
+    async dadosPessoaFisica() {
+        const localStorage = new LocalData()
+        const id = await localStorage.getValue('userId')
+        const token = await localStorage.getValue('apiToken')
+
+        const data = await api.get(`/v1/pessoas-fisicas/${id}`, 
+            { headers: {"Authorization" : `Bearer ${token}`} }
+        ).then(res => {
+            console.log('API: Puxou dados de pessoa física')
+            return res.data
+        }).catch(err => {
+            console.log('API: Erro ao puxar dados de pessoa física', err)
+            return false
+        });
+        return data
+    }
+
+    async editarDadosPessoaFisica(data) {
+        const localStorage = new LocalData()
+        const id = await localStorage.getValue('userId')
+        const token = await localStorage.getValue('apiToken')
+
+        const promise = api.post(`/v1/pessoas-fisicas/${id}/editar`, data, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }})
+
+        const validado = promise.then(res => {
+                console.log('API: Cadastro editado')
+                return true
+            }).catch(err => {
+                console.log('API: Erro em alterar o cadastro', err.response)
                 return false
             })
         return validado

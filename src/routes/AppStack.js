@@ -5,7 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Landing from '../pages/Landing/Landing'
 import CadastroStack from './CadastroStack'
 import CompletarCadastroStack from './CompletarCadastroStack'
-import RedefinirSenhaStack from './RedefinirSenhaStack'
+import LoginStack from './LoginStack'
+import MenuStack from './MenuStack'
 
 const { Navigator, Screen } = createStackNavigator()
 
@@ -14,9 +15,10 @@ function AppStack() {
         <NavigationContainer>
             <Navigator screenOptions={{ headerShown: false}}>
                 <Screen name="Landing" component={Landing}/>
-                <Screen name="Cadastro" component={CadastroStack}/>
-                <Screen name="CompletarCadastro" component={CompletarCadastroStack}/>
-                <Screen name="RedefinirSenhaStack" component={RedefinirSenhaStack}/>
+                <Screen name="CadastroStack" component={CadastroStack}/>
+                <Screen name="CompletarCadastroStack" component={CompletarCadastroStack}/>
+                <Screen name="LoginStack" component={LoginStack}/>
+                <Screen name="MenuStack" component={MenuStack}/>
             </Navigator>
         </NavigationContainer>
     )

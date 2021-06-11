@@ -10,7 +10,7 @@ import Redefinido from '../pages/Login/Redefinido/Redefinido'
 
 const { Navigator, Screen } = createStackNavigator()
 
-function RedefinirSenhaStack() {
+function LoginStack() {
     return(
         <Navigator screenOptions={{ headerShown: false}}>
             <Screen name="Login" component={Login}/>
@@ -23,4 +23,4 @@ function RedefinirSenhaStack() {
     )
 }
 
-export default RedefinirSenhaStack;
+export default LoginStack;

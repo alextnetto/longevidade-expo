@@ -72,10 +72,10 @@ function InfoPessoais1(props) {
     function handleError() {
         if (!validaNome()) {
             setAviso('Informe o seu nome completo.')
-        } else if (state.cpf.length === 0) {
-            setAviso('Informe o seu CPF.')
-        } else if (!validaCpf()) {
-            setAviso('O CPF informado não está correto. Verifique e tente novamente.')
+        //} else if (state.cpf.length === 0) {
+        //    setAviso('Informe o seu CPF.')
+        //} else if (!validaCpf()) {
+        //    setAviso('O CPF informado não está correto. Verifique e tente novamente.')
         } else if (state.email.length === 0) {
             setAviso('Informe o seu melhor e-mail.')
         } else if (!validaEmail()) {

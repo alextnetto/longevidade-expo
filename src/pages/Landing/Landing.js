@@ -9,14 +9,17 @@ import HeaderCadastro from '../../components/HeaderCadastro/HeaderCadastro'
 function Landing() {
     const { navigate } = useNavigation()
 
+    function handleNavigateToLoginPage() {
+        navigate('LoginStack')
+    }
+    function handleNavigateToMenu() {
+        navigate('MenuStack')
+    }
     function handleNavigateToCadastroPage() {
-        navigate('Cadastro')
+        navigate('CadastroStack')
     }
     function handleNavigateToCompletarCadastroPage() {
-        navigate('CompletarCadastro')
-    }
-    function handleNavigateToLoginPage() {
-        navigate('RedefinirSenhaStack')
+        navigate('CompletarCadastroStack')
     }
 
     return (
@@ -26,6 +29,9 @@ function Landing() {
             <View style={styles.buttonContainer}>
                 <RectButton onPress={handleNavigateToLoginPage} style={styles.button}>
                     <Text style={styles.buttonText}> Login </Text>
+                </RectButton>
+                <RectButton onPress={handleNavigateToMenu} style={styles.button}>
+                    <Text style={styles.buttonText}> Menu </Text>
                 </RectButton>
                 <RectButton onPress={handleNavigateToCadastroPage} style={styles.button}>
                     <Text style={styles.buttonText}> Cadastro </Text>

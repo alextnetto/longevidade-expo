@@ -1,45 +1,49 @@
-import React, { useState} from 'react';
-import { View, Text, TextInput } from 'react-native'
+import React, { useState } from 'react';
+import { View, Text, Switch, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { RectButton } from 'react-native-gesture-handler'
 import { mask as masker, unMask } from 'remask'
 import Spinner from 'react-native-loading-spinner-overlay';
 
+import HeaderCadastro from '../../../../components/HeaderCadastro/HeaderCadastro'
 import styles from './styles'
-import NavigationButton from '../../../components/NavigationButton/NavigationButton'
-import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
-import getCepData from '../../../services/cep'
-import Backend from '../../../services/back'
+import Backend from '../../../../services/back'
+import getCepData from '../../../../services/cep'
 
-function CadastroEndereco(props) {
+function MeuCadastroEndereco(props) {
+    const data = props.route.params.endereco
     const [ state, setState ] = useState({
-        ...props.route.params,
-        cepValue: '',
-        cepMask: '',
-        estado: '',
-        cidade: '',
-        bairro: '',
-        logradouro: '',
-        numero: '',
-        complemento: '',
-        referencia: ''
+        bairro: data.bairro,
+        cep: data.cep,
+        cidade: data.cidade,
+        complemento: data.complemento,
+        estado: data.estado,
+        logradouro: data.logradouro,
+        numero: data.numero,
+        pontoReferencia: data.pontoReferencia,
     })
+    const [ editar, setEditar ] = useState(false)
     const [ aviso, setAviso ] = useState('')
     const [ spinner, setSpinner ] = useState(false)
 
     const { navigate } = useNavigation()
-    async function handleNext() {
-        setSpinner(true)
-        const api = new Backend()
-        const cadastro = await api.completarCadastro(state)
-        setSpinner(false)
-        if (cadastro) {
-            navigate('Finalizado')
-        } else {
-            setAviso('Algo deu errado na requisição')
-        }
+    function handleNext() {
+        navigate('Landing')
     }
     function handleGoBack() {
-        navigate('InfoPessoais2')
+        navigate('Landing')
+    }
+    function handleError() {
+        if (valid()) {
+            setAviso('Error')
+        }
+    }
+    function handleSave() {
+        var data = props.route.params
+        data.endereco = state
+        const api = new Backend()
+        api.editarDadosPessoaFisica(data)
+        return
     }
 
     async function handleCepChange(value) {
@@ -47,14 +51,12 @@ function CadastroEndereco(props) {
         if (value.length === 9) {
             setState({
                 ...state,
-                cepValue: unMask(value),
-                cepMask: masker(value, mask)
+                cep: masker(value, mask)
             })
             const data = await getCepData(unMask(value))
             setState({
                 ...state,
-                cepValue: unMask(value),
-                cepMask: masker(value, mask),
+                cep: masker(value, mask),
                 bairro: data.bairro,
                 cidade: data.localidade,
                 logradouro: data.logradouro,
@@ -63,32 +65,13 @@ function CadastroEndereco(props) {
         } else {
             setState({
                 ...state,
-                cepValue: unMask(value),
-                cepMask: masker(value, mask)
+                cep: masker(value, mask)
             })
         }
     }
-    console.log(state)
-    function validNext() {
-        return state.cepValue.length !== 0 &&
-            state.logradouro.length !== 0 &&
-            state.numero.length !== 0 &&
-            state.bairro.length !== 0 &&
-            state.cidade.length !== 0 &&
-            state.estado.length !== 0 
-    }
-    // TODO: Fazer função para checkar cep errado
-    async function validaCep() {
-        const cep = String(state.cepValue)
-        if (cep.length === 9) {
-            const data = await getCepData(cep)
-            return data
-        }
-        return false
-    }
-    52
+
     function handleError() {
-        if (state.cepValue.length === 0) {
+        if (state.cep.length < 9) {
             setAviso('Informe o CEP do seu endereço.')
         } else if (state.numero.length === 0) {
             setAviso('Informe o número do endereço.')
@@ -100,7 +83,9 @@ function CadastroEndereco(props) {
             setAviso('Informe a cidade do seu endereço.')
         } else if (state.estado.length === 0) {
             setAviso('Informe o estado do seu endereço.')
-        }
+        } else (
+            handleSave()
+        )
     }
 
     return(
@@ -112,21 +97,25 @@ function CadastroEndereco(props) {
             />
             <HeaderCadastro />
             <View style={styles.body}>
-                <Text style={styles.title}> Endereço </Text>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}> Endereço </Text>
+                </View>
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input} 
                         keyboardType='numeric'
                         placeholder='CEP'
-                        value={state.cepMask}
+                        value={state.cep}
                         onChangeText={handleCepChange}
                         maxLength={9}
+                        editable={editar}
                     />
                     <TextInput
                         style={styles.input} 
                         placeholder='Endereço'
                         value={state.logradouro}
                         onChangeText={(value) => setState({...state, logradouro: value})}
+                        editable={editar}
                     />
                     <View style={styles.linha2}>
                         <TextInput
@@ -135,12 +124,14 @@ function CadastroEndereco(props) {
                             placeholder='Número'
                             value={state.numero}
                             onChangeText={(value) => setState({...state, numero: value})}
+                            editable={editar}
                         />
                         <TextInput
                             style={styles.inputComplemento} 
                             placeholder='Complemento'
                             value={state.complemento}
                             onChangeText={(value) => setState({...state, complemento: value})}
+                            editable={editar}
                         />
                     </View>
                     <TextInput
@@ -148,6 +139,7 @@ function CadastroEndereco(props) {
                         placeholder='Bairro'
                         value={state.bairro}
                         onChangeText={(value) => setState({...state, bairro: value})}
+                        editable={editar}
                     />
                     <View style={styles.linha1}>
                         <TextInput
@@ -155,33 +147,46 @@ function CadastroEndereco(props) {
                             placeholder='Cidade'
                             value={state.cidade}
                             onChangeText={(value) => setState({...state, cidade: value})}
+                            editable={editar}
                         />
                         <TextInput
                             style={styles.inputUf} 
                             placeholder='UF'
                             value={state.estado}
                             onChangeText={(value) => setState({...state, estado: value})}
+                            editable={editar}
                         />
                     </View>
                     <TextInput
                         style={styles.input} 
                         placeholder='Ponto de referência'
-                        value={state.referencia}
-                        onChangeText={(value) => setState({...state, referencia: value})}
+                        value={state.pontoReferencia}
+                        onChangeText={(value) => setState({...state, pontoReferencia: value})}
+                        editable={editar}
                     />
                 </View>
+                <View style={styles.switchContainer}>
+                    <Switch
+                        trackColor={{ false: "#767577", true: "#00a000" }}
+                        thumbColor={editar ? "#f4f3f4" : "#f4f3f4"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={() => {setEditar(!editar)}}
+                        value={editar}
+                    />
+                    <Text style={styles.switchText}> Editar </Text>
+                </View>
                 <Text style={styles.warningText}> {aviso} </Text>
-                <NavigationButton
-                    isValid={validNext()}
-                    handleBack={handleGoBack}
-                    textBack='Voltar'
-                    handleError={handleError}
-                    handleNext={handleNext}
-                    textNext='Próximo'
-                />
+                <View style={styles.buttonContainer}>
+                    <RectButton style={styles.button} onPress={handleGoBack}>
+                        <Text style={styles.buttonText}> Voltar </Text>
+                    </RectButton>
+                    <RectButton style={styles.button} onPress={handleError}>
+                        <Text style={styles.buttonText}> Salvar </Text>
+                    </RectButton>
+                </View>
             </View>
         </View>
     ) 
 }
 
-export default CadastroEndereco;
+export default MeuCadastroEndereco;
