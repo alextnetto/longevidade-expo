@@ -14,23 +14,29 @@ function MeuCadastro() {
     const [ state, setState ] = useState({})
     const [ spinner, setSpinner ] = useState(false)
     
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     function handleNext() {
         navigate('Landing')
     }
     function handleGoBack() {
-        navigate('Landing')
+        goBack()
     }
-    function handleNavigateToDadosPessoais() {
-        navigate('DadosPessoais')
+    async function handleNavigateToDadosPessoais() {
+        const api = new Backend()
+        setSpinner(true)
+        const dadosPessoaFisica = await api.dadosPessoaFisica()
+        setSpinner(false)
+        if (dadosPessoaFisica) {
+            navigate('DadosPessoais', dadosPessoaFisica)
+        }
     }
     async function handleNavigateToMeuCadastroEndereco() {
         const api = new Backend()
         setSpinner(true)
-        const enderecoDados = await api.dadosPessoaFisica()
+        const dadosPessoaFisica = await api.dadosPessoaFisica()
         setSpinner(false)
-        if (enderecoDados) {
-            navigate('MeuCadastroEndereco', enderecoDados)
+        if (dadosPessoaFisica) {
+            navigate('MeuCadastroEndereco', dadosPessoaFisica)
         }
     }
     function handleNavigateToAcessoESeguranca() {

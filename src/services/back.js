@@ -186,7 +186,26 @@ class Backend {
         const id = await localStorage.getValue('userId')
         const token = await localStorage.getValue('apiToken')
 
-        const promise = api.post(`/v1/pessoas-fisicas/${id}/editar`, data, {
+        const promise = api.post(`/v1/pessoas-fisicas/${id}/editar/`, data, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }})
+
+        const validado = promise.then(res => {
+                console.log('API: Cadastro editado')
+                return true
+            }).catch(err => {
+                console.log('API: Erro em alterar o cadastro', err.response)
+                return false
+            })
+        return validado
+    }
+    async editarDadosCadastraisPessoaFisica(data) {
+        const localStorage = new LocalData()
+        const id = await localStorage.getValue('userId')
+        const token = await localStorage.getValue('apiToken')
+
+        const promise = api.post(`/v1/pessoas-fisicas/${id}/editar/dados-cadastrais`, data, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }})

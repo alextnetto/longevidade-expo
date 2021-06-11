@@ -14,19 +14,22 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 30,
     backgroundColor: 'white',
     alignItems: 'center',
-},
-titleContainer: {
-    height: '12%',
-    justifyContent: 'center'
-},
-title: {
-    fontSize: 30,
-    color: 'black',
-    justifyContent: 'center',
-},
-inputContainer: {
+  },
+  titleContainer: {
+      height: '12%',
+      justifyContent: 'center'
+  },
+  title: {
+      fontSize: 30,
+      color: 'black',
+      justifyContent: 'center',
+  },
+  inputContainer: {
     height: '60%',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+  },
+  inputTitle: {
+    fontSize: 20
   },
   input: {
     marginTop: 20,
@@ -35,20 +38,34 @@ inputContainer: {
     width: 200,
     fontSize: 23
   },
-  button: {
+  switchContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    height: 50
+    marginTop: '3%'
   },
-  buttonText: {
-    fontSize: 25,
-    color: '#000',
+  switchText: {
+    fontSize: 23,
+    marginLeft: 7,
   },
   warningText: {
-    fontSize: 16,
-    color: 'red',
-    textAlign: 'center',
-    marginTop: '2%'
+    marginTop: '3%',
+    fontSize: 20,
+    color: 'red'
+  },
+  buttonContainer2: {
+    flexDirection: 'row',
+    marginTop: '7%',
+    justifyContent: 'space-evenly',
+    width: '100%',
+  },
+  button: {
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'black',
+    padding: 20
+  },
+  buttonText: {
+    fontSize: 23,
   }
 });
 
