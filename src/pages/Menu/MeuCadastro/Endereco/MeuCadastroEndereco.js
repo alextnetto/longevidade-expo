@@ -26,11 +26,8 @@ function MeuCadastroEndereco(props) {
     const [ aviso, setAviso ] = useState('')
     const [ spinner, setSpinner ] = useState(false)
 
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     function handleNext() {
-        navigate('Landing')
-    }
-    function handleGoBack() {
         navigate('Landing')
     }
     function handleError() {
@@ -42,7 +39,7 @@ function MeuCadastroEndereco(props) {
         var data = props.route.params
         data.endereco = state
         const api = new Backend()
-        api.editarDadosPessoaFisica(data)
+        api.editarEnderecoPessoaFisica(data)
         return
     }
 
@@ -177,7 +174,7 @@ function MeuCadastroEndereco(props) {
                 </View>
                 <Text style={styles.warningText}> {aviso} </Text>
                 <View style={styles.buttonContainer}>
-                    <RectButton style={styles.button} onPress={handleGoBack}>
+                    <RectButton style={styles.button} onPress={goBack}>
                         <Text style={styles.buttonText}> Voltar </Text>
                     </RectButton>
                     <RectButton style={styles.button} onPress={handleError}>

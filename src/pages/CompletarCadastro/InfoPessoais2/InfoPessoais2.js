@@ -18,12 +18,9 @@ function InfoPessoais2(props) {
     })
     const [ aviso, setAviso ] = useState('')
     
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     function handleNext() {
         navigate('Endereco', state)
-    }
-    function handleGoBack() {
-        navigate('InfoPessoais1')
     }
     
     function validNascimento() {
@@ -108,7 +105,7 @@ function InfoPessoais2(props) {
                 <Text style={styles.warningText}> {aviso} </Text>
                 <NavigationButton
                     isValid={validGenero() && validNascimento()}
-                    handleBack={handleGoBack}
+                    handleBack={goBack}
                     textBack='Voltar'
                     handleError={handleError}
                     handleNext={handleNext}

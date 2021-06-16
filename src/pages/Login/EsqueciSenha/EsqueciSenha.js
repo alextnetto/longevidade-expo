@@ -31,9 +31,6 @@ function EsqueciSenha(props) {
             setAviso('O número do celular informado não está cadastrado. Verifique e tente novamente.')
         }
     }
-    function handleGoBack() {
-        navigate('Login', props.route.params)
-    }
     function handleError() {
         if (state.celularValue.length === 0) {
             setAviso('Informe o número do seu celular.')
@@ -52,26 +49,6 @@ function EsqueciSenha(props) {
 
     function validCelular() {
         return state.celularValue.length === 11
-    }
-    var buttonLogin
-    if (validCelular()) {
-        buttonLogin = <View style={styles.buttonContainer}>
-            <RectButton onPress={handleGoBack} style={styles.buttonBack}>
-            <Text style={styles.buttonText}> Voltar </Text>
-            </RectButton>
-            <RectButton onPress={handleNext} style={styles.buttonLogin}>
-                <Text style={styles.buttonText}> Logar </Text>
-            </RectButton>
-        </View>
-    } else {
-        buttonLogin = <View style={styles.buttonContainer}>
-                <RectButton onPress={handleGoBack} style={styles.buttonBack}>
-                <Text style={styles.buttonText}> Voltar </Text>
-                </RectButton>
-                <RectButton onPress={handleError} style={{...styles.buttonLogin, opacity:0.5}}>
-                    <Text style={styles.buttonText}> Logar </Text>
-                </RectButton>
-            </View>
     }
     
     return(
@@ -99,7 +76,7 @@ function EsqueciSenha(props) {
                 <Text style={styles.warningText}> {aviso} </Text>
                 <NavigationButton
                     isValid={validCelular()}
-                    handleBack={handleGoBack}
+                    handleBack={goBack}
                     textBack='Voltar'
                     handleError={handleError}
                     handleNext={handleNext}

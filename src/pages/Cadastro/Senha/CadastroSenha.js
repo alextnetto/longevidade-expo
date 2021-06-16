@@ -7,12 +7,9 @@ import NavigationButton from '../../../components/NavigationButton/NavigationBut
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
 function CadastroSenha(props) {
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     function handleNext() {
         navigate('Termos', state)
-    }
-    function handleGoBack() {
-        navigate('Celular', props.route.params)
     }
     
     const [ state, setState ] = useState({
@@ -63,7 +60,7 @@ function CadastroSenha(props) {
                 <Text style={styles.warningText}> {aviso} </Text>
                 <NavigationButton
                     isValid={validSenha()}
-                    handleBack={handleGoBack}
+                    handleBack={goBack}
                     textBack='Voltar'
                     handleError={handleError}
                     handleNext={handleNext}

@@ -26,7 +26,7 @@ function CadastroEndereco(props) {
     const [ aviso, setAviso ] = useState('')
     const [ spinner, setSpinner ] = useState(false)
 
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     async function handleNext() {
         setSpinner(true)
         const api = new Backend()
@@ -37,9 +37,6 @@ function CadastroEndereco(props) {
         } else {
             setAviso('Algo deu errado na requisição')
         }
-    }
-    function handleGoBack() {
-        navigate('InfoPessoais2')
     }
 
     async function handleCepChange(value) {
@@ -68,7 +65,6 @@ function CadastroEndereco(props) {
             })
         }
     }
-    console.log(state)
     function validNext() {
         return state.cepValue.length !== 0 &&
             state.logradouro.length !== 0 &&
@@ -173,7 +169,7 @@ function CadastroEndereco(props) {
                 <Text style={styles.warningText}> {aviso} </Text>
                 <NavigationButton
                     isValid={validNext()}
-                    handleBack={handleGoBack}
+                    handleBack={goBack}
                     textBack='Voltar'
                     handleError={handleError}
                     handleNext={handleNext}

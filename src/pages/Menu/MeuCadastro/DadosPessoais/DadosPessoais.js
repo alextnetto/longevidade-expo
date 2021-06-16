@@ -17,16 +17,14 @@ function DadosPessoais(props) {
     const [ state, setState ] = useState({
         nome: `${data.nome} ${data.sobreNome}`,
         genero: data.genero,
-        nascimento: `${nascimento.substring(8)}/${nascimento.substring(5,7)}/${nascimento.substring(0,4)}`
+        nascimento: `${nascimento.substring(8)}/${nascimento.substring(5,7)}/${nascimento.substring(0,4)}`,
+        email: data.email
     })
     const [ aviso, setAviso ] = useState('')
     const [ editar, setEditar ] = useState(false)
     const [ spinner, setSpinner ] = useState(false)
 
     const { navigate, goBack } = useNavigation()
-    function handleGoBack() {
-        goBack()
-    }
     function handleError() {
         if (!validNome()) {
             setAviso('Informe o seu nome completo.')
@@ -46,6 +44,8 @@ function DadosPessoais(props) {
         })
     }
     function handleSave() {
+        const api = new Backend()
+        api.editarDadosCadastraisPessoaFisica(state)
         return
     }
 
@@ -104,25 +104,25 @@ function DadosPessoais(props) {
                                 text='Masculino'
                                 checked={state.genero === 'M'}
                                 onPress={() => {setState({...state, genero: 'M'})}}
-                                editable={editar}
+                                disabled={!editar}
                                 />
                             <RadioButton
                                 text='Feminino'
                                 checked={state.genero === 'F'}
                                 onPress={() => {setState({...state, genero: 'F'})}}
-                                editable={editar}
+                                disabled={!editar}
                                 />
                             <RadioButton
                                 text='Outros'
                                 checked={state.genero === 'Outros'}
                                 onPress={() => {setState({...state, genero: 'Outros'})}}
-                                editable={!editar}
+                                disabled={!editar}
                                 />
                             <RadioButton
                                 text='Não quero informar'
                                 checked={state.genero === 'Não quero informar'}
                                 onPress={() => {setState({...state, genero: 'Não quero informar'})}}
-                                editable={editar}
+                                disabled={!editar}
                                 />
                         </View>
                     </View>
@@ -139,7 +139,7 @@ function DadosPessoais(props) {
                 </View>
                 <Text style={styles.warningText}> {aviso} </Text>
                 <View style={styles.buttonContainer2}>
-                    <RectButton style={styles.button} onPress={handleGoBack}>
+                    <RectButton style={styles.button} onPress={goBack}>
                         <Text style={styles.buttonText}> Voltar </Text>
                     </RectButton>
                     <RectButton style={styles.button} onPress={handleError}>

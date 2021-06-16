@@ -14,12 +14,9 @@ function CadastroCelular() {
     })
     const [ aviso, setAviso ] = useState('')
 
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     function handleNext() {
         navigate('Senha', state)
-    }
-    function handleGoBack() {
-        navigate('Landing')
     }
 
     function handleCelularChange(value) {
@@ -64,7 +61,7 @@ function CadastroCelular() {
                 </Text>
                 <NavigationButton
                     isValid={validCelular()}
-                    handleBack={handleGoBack}
+                    handleBack={goBack}
                     textBack='Voltar'
                     handleError={handleError}
                     handleNext={handleNext}

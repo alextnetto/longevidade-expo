@@ -9,14 +9,14 @@ function RadioButton(props) {
     return(
         <View>
             {props.checked == true ?
-                <TouchableOpacity style={styles.button} onPress={props.onPress} disabled={!props.editable || false}>
+                <TouchableOpacity style={styles.button} onPress={props.onPress} disabled={props.disabled || false}>
                     <View style={styles.container}>
                         <Image style={styles.img} source={selectedImg}/>
                         <Text style={styles.text}> {props.text} </Text>
                     </View>
                 </TouchableOpacity>
                 :
-                <TouchableOpacity style={styles.button} onPress={props.onPress} disabled={!props.editable || false}>
+                <TouchableOpacity style={styles.button} onPress={props.onPress} disabled={props.disabled || false}>
                     <View style={styles.container}>
                         <Image style={styles.img} source={unselectedImg}/>
                         <Text style={styles.text}> {props.text} </Text>

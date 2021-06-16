@@ -19,7 +19,7 @@ function Login() {
     const [ aviso, setAviso ] = useState('')
     const [ spinner, setSpinner ] = useState(false)
 
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     async function handleLogin() {
         setSpinner(true)
         const api = new Backend()
@@ -32,13 +32,9 @@ function Login() {
             setAviso('Número do celular ou senha de acesso incorreta.')
         }
     }
-    function handleGoBack() {
-        navigate('Landing')
-    }
     function handleEsqueciSenha() {
         navigate('EsqueciSenha', state)
     }
-   
     function handleError() {
         if (state.celularValue.length === 0) {
             setAviso('Número do celular ou senha de acesso incorreta.')
@@ -102,7 +98,7 @@ function Login() {
                 <Text style={styles.warningText}> {aviso} </Text>
                 <NavigationButton
                     isValid={validateCelular() && validateSenha()}
-                    handleBack={handleGoBack}
+                    handleBack={goBack}
                     textBack='Voltar'
                     handleError={handleError}
                     handleNext={handleLogin}

@@ -16,7 +16,7 @@ function CadastroSms(props) {
     const [ aviso, setAviso ] = useState('')
     const [ spinner, setSpinner ] = useState(false)
 
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     async function handleNext() {
         setSpinner(true)
         const api = new Backend()
@@ -27,9 +27,6 @@ function CadastroSms(props) {
         } else {
             setAviso('O código informado não está correto. Verifique o código enviado por SMS e tente novamente.')
         }
-    }
-    function handleGoBack() {
-        navigate('Termos', props.route.params)
     }
 
     function handleError() {
@@ -65,7 +62,7 @@ function CadastroSms(props) {
                 </Text>
                 <NavigationButton
                     isValid={validSms()}
-                    handleBack={handleGoBack}
+                    handleBack={goBack}
                     textBack='Voltar'
                     handleError={handleError}
                     handleNext={handleNext}

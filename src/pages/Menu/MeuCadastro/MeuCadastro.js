@@ -18,9 +18,6 @@ function MeuCadastro() {
     function handleNext() {
         navigate('Landing')
     }
-    function handleGoBack() {
-        goBack()
-    }
     async function handleNavigateToDadosPessoais() {
         const api = new Backend()
         setSpinner(true)
@@ -64,6 +61,9 @@ function MeuCadastro() {
                     </RectButton>
                     <RectButton onPress={handleNavigateToAcessoESeguranca} style={styles.button}>
                         <Text style={styles.buttonText}> Acesso e Segurança </Text>
+                    </RectButton>
+                    <RectButton style={styles.button} onPress={goBack}>
+                        <Text style={styles.buttonText}> Voltar </Text>
                     </RectButton>
                 </View>
             </View>

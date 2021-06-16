@@ -18,7 +18,7 @@ function CadastroTermos(props) {
     const [ aviso, setAviso ] = useState('')
     const [ spinner, setSpinner ] = useState(false)
 
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     async function handleNext() {
         setSpinner(true)
         const api = new Backend()
@@ -29,9 +29,6 @@ function CadastroTermos(props) {
         } else {
             setAviso('Algo deu errado na requisição')
         }
-    }
-    function handleGoBack() {
-        navigate('Senha', props.route.params)
     }
 
     function handleError() {
@@ -72,7 +69,7 @@ function CadastroTermos(props) {
                 </Text>
                 <NavigationButton
                     isValid={state.aceite}
-                    handleBack={handleGoBack}
+                    handleBack={goBack}
                     textBack='Voltar'
                     handleError={handleError}
                     handleNext={handleNext}

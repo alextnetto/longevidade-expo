@@ -18,7 +18,7 @@ function RedefinirSenha(props) {
     const [ aviso, setAviso ] = useState()
     const [ spinner, setSpinner ] = useState(false)
 
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     async function handleNext() {
         setSpinner(true)
         const api = new Backend()
@@ -29,9 +29,6 @@ function RedefinirSenha(props) {
         } else {
             setAviso('Falha na requisição')
         }
-    }
-    function handleGoBack() {
-        navigate('RedefinirSenhaSms', props.route.params)
     }
     function handleError() {
         if (state.senha1 !== state.senha2) {
@@ -76,7 +73,7 @@ function RedefinirSenha(props) {
                 <Text style={styles.warningText}> {aviso} </Text>
                 <NavigationButton
                     isValid={validSenha()}
-                    handleBack={handleGoBack}
+                    handleBack={goBack}
                     textBack='Voltar'
                     handleError={handleError}
                     handleNext={handleNext}

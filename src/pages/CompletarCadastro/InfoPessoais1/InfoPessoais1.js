@@ -8,12 +8,9 @@ import NavigationButton from '../../../components/NavigationButton/NavigationBut
 import HeaderCadastro from '../../../components/HeaderCadastro/HeaderCadastro'
 
 function InfoPessoais1(props) {
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     function handleNext() {
         navigate('InfoPessoais2', state)
-    }
-    function handleGoBack() {
-        navigate('Landing')
     }
     
     const [ state, setState ] = useState({
@@ -117,7 +114,7 @@ function InfoPessoais1(props) {
                 <Text style={styles.warningText}> {aviso} </Text>
                 <NavigationButton
                     isValid={validaEmail() && validaCpf() && validaNome()}
-                    handleBack={handleGoBack}
+                    handleBack={goBack}
                     textBack='Voltar'
                     handleError={handleError}
                     handleNext={handleNext}

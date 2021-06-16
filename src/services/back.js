@@ -29,7 +29,7 @@ class Backend {
                 return true
             })
             .catch(err => {
-                console.log('API: Erro no cadastrar', err.response)
+                console.log('API: Erro no cadastrar', err.request)
                 return false
             })
         return resultPromise
@@ -72,7 +72,7 @@ class Backend {
         const estado = String(data.estado)
         const referencia = String(data.referencia)
         const body = {
-            "nome": nome.split(' ').slice(0, -1).join(' '),
+            "nome": nome.split(' ').slice(0, 1).join(' '),
             "email": email,
             "endereco": {
                 "cep": cep,
@@ -86,7 +86,7 @@ class Backend {
                 "tipoEndereco": 1
             },
             "idPessoa": id,
-            "sobreNome": nome.split(' ').slice(-1).join(' '),
+            "sobreNome": nome.split(' ').slice(1).join(' '),
             "genero": genero,
             "dataNascimento": nascimento,
         }
@@ -170,25 +170,27 @@ class Backend {
         const token = await localStorage.getValue('apiToken')
 
         const data = await api.get(`/v1/pessoas-fisicas/${id}`, 
-            { headers: {"Authorization" : `Bearer ${token}`} }
+            { headers: {"Authorization" : token} }
         ).then(res => {
             console.log('API: Puxou dados de pessoa física')
             return res.data
         }).catch(err => {
-            console.log('API: Erro ao puxar dados de pessoa física', err)
+            console.log('API: Erro ao puxar dados de pessoa física', err.request)
             return false
         });
         return data
     }
 
-    async editarDadosPessoaFisica(data) {
+    async editarEnderecoPessoaFisica(data) {
         const localStorage = new LocalData()
         const id = await localStorage.getValue('userId')
         const token = await localStorage.getValue('apiToken')
-
+        data.endereco.tipoEndereco = 1
+        
+        console.log(data.endereco)
         const promise = api.post(`/v1/pessoas-fisicas/${id}/editar/`, data, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': token
             }})
 
         const validado = promise.then(res => {
@@ -204,17 +206,29 @@ class Backend {
         const localStorage = new LocalData()
         const id = await localStorage.getValue('userId')
         const token = await localStorage.getValue('apiToken')
+        const nome = String(data.nome)
+        const nascRaw = String(data.nascimento)
+        const nascimento = `${nascRaw.substring(6, 10)}-${nascRaw.substring(3, 5)}-${nascRaw.substring(0, 2)}`
 
-        const promise = api.post(`/v1/pessoas-fisicas/${id}/editar/dados-cadastrais`, data, {
+        const requestData = {
+            "dataNascimento": nascimento,
+            "email": data.email,  
+            "genero": data.genero,
+            "idPessoa": id,
+            "nome": nome.split(' ').slice(0, 1).join(' '),
+            "sobreNome": nome.split(' ').slice(1).join(' '),
+        }
+        console.log(requestData)
+        const promise = api.post(`/v1/pessoas-fisicas/${id}/editar/dados-cadastrais`, requestData, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': token
             }})
 
         const validado = promise.then(res => {
                 console.log('API: Cadastro editado')
                 return true
             }).catch(err => {
-                console.log('API: Erro em alterar o cadastro', err.response)
+                console.log('API: Erro em alterar o cadastro', err)
                 return false
             })
         return validado

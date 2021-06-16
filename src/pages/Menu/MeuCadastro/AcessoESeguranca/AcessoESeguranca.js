@@ -15,11 +15,8 @@ function AcessoESeguranca() {
     const [ aviso, setAviso ] = useState('Error')
     const [ spinner, setSpinner ] = useState(false)
 
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     function handleNext() {
-        navigate('Landing')
-    }
-    function handleGoBack() {
         navigate('Landing')
     }
     function handleError() {
@@ -60,7 +57,7 @@ function AcessoESeguranca() {
                 <Text style={styles.warningText}> {aviso} </Text>
                 <NavigationButton
                     isValid={valid()}
-                    handleBack={handleGoBack}
+                    handleBack={goBack}
                     textBack='Voltar'
                     handleError={handleError}
                     handleNext={handleNext}
