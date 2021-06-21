@@ -187,8 +187,7 @@ class Backend {
         const token = await localStorage.getValue('apiToken')
         data.endereco.tipoEndereco = 1
         
-        console.log(data.endereco)
-        const promise = api.post(`/v1/pessoas-fisicas/${id}/editar/`, data, {
+        const promise = api.put(`/v1/enderecos/pessoas-fisicas/${id}/`, data.endereco, {
             headers: {
                 'Authorization': token
             }})

@@ -18,7 +18,7 @@ function EsqueciSenha(props) {
     const [ aviso, setAviso ] = useState('')
     const [ spinner, setSpinner ] = useState(false)
 
-    const { navigate } = useNavigation()
+    const { navigate, goBack } = useNavigation()
     async function handleNext() {
         setSpinner(true)
         const api = new Backend()

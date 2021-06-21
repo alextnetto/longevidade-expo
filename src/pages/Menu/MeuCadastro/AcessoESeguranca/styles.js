@@ -14,34 +14,46 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 30,
     backgroundColor: 'white',
     alignItems: 'center',
-},
-titleContainer: {
-    height: '12%',
-    justifyContent: 'center'
-},
-title: {
+  },
+  title: {
     fontSize: 30,
     color: 'black',
     justifyContent: 'center',
-},
-inputContainer: {
-    height: '60%',
+    margin: '10%'
+  },
+  inputContainer: {
     justifyContent: 'center',
   },
+  inputTitle: {
+    marginTop: '3%',
+    fontSize: 24,
+    justifyContent: 'center'
+  },
   input: {
-    marginTop: 20,
+    marginTop: '6%',
     borderBottomColor: '#000',
     borderBottomWidth: 1,
     width: 200,
     fontSize: 23
   },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: '3%'
+  },
+  switchText: {
+    fontSize: 20,
+    marginLeft: 7,
+  },
   button: {
+    margin: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 50
+    height: 50,
+    borderWidth: 1
   },
   buttonText: {
-    fontSize: 25,
+    fontSize: 22,
     color: '#000',
   },
   warningText: {
