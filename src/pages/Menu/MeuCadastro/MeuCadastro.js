@@ -36,8 +36,14 @@ function MeuCadastro() {
             navigate('MeuCadastroEndereco', dadosPessoaFisica)
         }
     }
-    function handleNavigateToAcessoESeguranca() {
-        navigate('AcessoESeguranca')
+    async function handleNavigateToAcessoESeguranca() {
+        const api = new Backend()
+        setSpinner(true)
+        const dadosPessoaFisica = await api.dadosPessoaFisica()
+        setSpinner(false)
+        if (dadosPessoaFisica) {
+            navigate('AcessoESeguranca', dadosPessoaFisica)
+        }
     }
 
     return(

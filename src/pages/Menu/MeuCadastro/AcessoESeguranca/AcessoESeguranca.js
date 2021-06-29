@@ -9,9 +9,11 @@ import HeaderCadastro from '../../../../components/HeaderCadastro/HeaderCadastro
 import styles from './styles'
 import Backend from '../../../../services/back'
 
-function AcessoESeguranca() {
+function AcessoESeguranca(props) {
+    const data = props.route.params
+    const telefone = String(data.telefone.ddd + data.telefone.numero)
     const [ state, setState ] = useState({
-        telefone: null,
+        celularMask: masker(telefone, '(99) 9 9999-9999'),
         senhaAtual: '',
         senhaNova: '',
         senhaNova2: ''
@@ -78,9 +80,10 @@ function AcessoESeguranca() {
                         style={styles.input}
                         keyboardType='numeric'
                         placeholder='(__) _ ____-____'
-                        value={state.telefone}
+                        value={state.celularMask}
                         onChangeText={handleCelularChange}
                         maxLength={16}
+                        editable={editar}
                     />
                 </View>
                 <View style={styles.editContainer}>
