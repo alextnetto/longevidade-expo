@@ -201,6 +201,7 @@ class Backend {
             })
         return validado
     }
+
     async editarDadosCadastraisPessoaFisica(data) {
         const localStorage = new LocalData()
         const id = await localStorage.getValue('userId')
@@ -218,7 +219,7 @@ class Backend {
             "sobreNome": nome.split(' ').slice(1).join(' '),
         }
         console.log(requestData)
-        const promise = api.post(`/v1/pessoas-fisicas/${id}/editar/dados-cadastrais`, requestData, {
+        const promise = api.put(`/v1/pessoas-fisicas/${id}/editar/dados-cadastrais`, requestData, {
             headers: {
                 'Authorization': token
             }})
@@ -227,9 +228,35 @@ class Backend {
                 console.log('API: Cadastro editado')
                 return true
             }).catch(err => {
-                console.log('API: Erro em alterar o cadastro', err)
+                console.log('API: Erro em alterar o cadastro', err.response.data)
                 return false
             })
+        return validado
+    }
+
+    async alterarSenha(data){
+        const localStorage = new LocalData()
+        const id = await localStorage.getValue('userId')
+        const token = await localStorage.getValue('apiToken')
+
+        const requestData = {
+            "senhaAtual": data.senhaAtual,
+            "senhaNova" : data.senhaNova
+        }
+        console.log(requestData)
+        const promise = api.put(`/v1/pessoas-fisicas/${id}/senha`, requestData, {
+            headers: {
+                'Authorization': token
+            }})
+
+        const validado = await promise.then(res => {
+                console.log('API: Senha alterada')
+                return true
+            }).catch(err => {
+                console.log('API: Erro em alterar a senha', err.response.data)
+                return false
+            })
+        console.log(validado)
         return validado
     }
 }

@@ -15,7 +15,6 @@ class LocalData {
         try {
             const value = await AsyncStorage.getItem(`@${key}`)
             if(value !== null) {
-                console.log(`${key} existe e é: ${value}`)
                 return value
             } else {
                 console.log(`${key} não existe`)

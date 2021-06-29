@@ -12,17 +12,27 @@ import Backend from '../../../../services/back'
 function AcessoESeguranca() {
     const [ state, setState ] = useState({
         telefone: null,
-        senhaAntiga: null,
-        senhaNova: null,
-        senhaNova2: null
+        senhaAtual: '',
+        senhaNova: '',
+        senhaNova2: ''
     })
-    const [ aviso, setAviso ] = useState('Error')
+    const [ aviso, setAviso ] = useState('')
     const [ editar, setEditar ] = useState(false)
     const [ spinner, setSpinner ] = useState(false)
 
     const { navigate, goBack } = useNavigation()
-    function handleNext() {
-        navigate('Landing')
+    async function handleSaveSenha() {
+        if (validSenha()) {
+            const api = new Backend()
+            setSpinner(true)
+            const senhaRedefinida = await api.alterarSenha(state)
+            setSpinner(false)
+            if (senhaRedefinida) {
+                setAviso('Senha redefinida')
+            } else {
+                setAviso('Houve algum erro na requisição')
+            }
+        }
     }
     function handleCelularChange(value) {
         const mask = '(99) 9 9999-9999'
@@ -37,8 +47,17 @@ function AcessoESeguranca() {
         }
     }
 
-    function valid() {
-        return true
+    function validSenha() {
+        if (state.senhaAtual.length !== 6) {
+            setAviso('Sua senha atual deve conter 06 números.')
+        } else if (state.senhaNova.length !== 6) {
+            setAviso('Sua senha nova deve conter 06 números.')
+        } else if (state.senhaNova !== state.senhaNova2) {
+            setAviso('As novas senhas informadas não são iguais. Verifique e tente novamente.')
+        } else {
+            return true
+        }
+        return false
     }
     
     return(
@@ -80,13 +99,18 @@ function AcessoESeguranca() {
                     </RectButton>
                 </View>
                 <View style={styles.inputContainer}>
-                    <Text style={styles.inputTitle}> Senha </Text>
+                    <Text style={styles.inputTitle}> Alterar senha </Text>
                     <TextInput
                         style={styles.input}
                         keyboardType='numeric'
                         placeholder='Senha atual'
-                        value={''}
-                        onChangeText={() => {}}
+                        value={state.senhaAtual}
+                        onChangeText={(value) => {
+                            setState({
+                                ...state,
+                                senhaAtual: value
+                            })
+                        }}
                         maxLength={6}
                         secureTextEntry
                     />
@@ -94,8 +118,13 @@ function AcessoESeguranca() {
                         style={styles.input}
                         keyboardType='numeric'
                         placeholder='Senha nova'
-                        value={''}
-                        onChangeText={() => {}}
+                        value={state.senhaNova}
+                        onChangeText={(value) => {
+                            setState({
+                                ...state,
+                                senhaNova: value
+                            })
+                        }}
                         maxLength={6}
                         secureTextEntry
                     />
@@ -103,14 +132,19 @@ function AcessoESeguranca() {
                         style={styles.input}
                         keyboardType='numeric'
                         placeholder='Confirme a senha'
-                        value={''}
-                        onChangeText={() => {}}
+                        value={state.senhaNova2}
+                        onChangeText={(value) => {
+                            setState({
+                                ...state,
+                                senhaNova2: value
+                            })
+                        }}
                         maxLength={6}
                         secureTextEntry
                     />
                 </View>
                 <Text style={styles.warningText}> {aviso} </Text>
-                <RectButton onPress={() => {}} style={styles.button}>
+                <RectButton onPress={handleSaveSenha} style={styles.button}>
                     <Text style={styles.buttonText}> Salvar </Text>
                 </RectButton>
                 <RectButton onPress={goBack} style={styles.button}>
